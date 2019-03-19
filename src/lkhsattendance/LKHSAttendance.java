@@ -9,6 +9,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 /**
@@ -22,6 +23,9 @@ public class LKHSAttendance extends Application {
         Parent root = FXMLLoader.load(getClass().getResource("/lkhsattendance/gui/view/LoginView.fxml"));
         
         Scene scene = new Scene(root);
+        
+        Image icon = new Image("/lkhsattendance/gui/images/Icon.png");
+        stage.getIcons().add(icon);
         
         stage.setScene(scene);
         stage.show();

@@ -1,12 +1,72 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXPasswordField?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import com.jfoenix.controls.JFXToggleButton?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Text?>
 
-<AnchorPane id="AnchorPane" prefHeight="200" prefWidth="320" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/10.0.1" fx:controller="lkhsattendance.gui.controller.LoginViewController">
-    <children>
-        <Button fx:id="button" layoutX="126" layoutY="90" onAction="#handleButtonAction" text="Click Me!" />
-        <Label fx:id="label" layoutX="126" layoutY="120" minHeight="16" minWidth="69" />
-    </children>
+<AnchorPane id="AnchorPane" prefHeight="451.0" prefWidth="536.0" stylesheets="@../css/Style.css" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lkhsattendance.gui.controller.LoginViewController">
+   <children>
+      <StackPane layoutX="91.0" layoutY="65.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <VBox alignment="TOP_CENTER" maxHeight="300.0" maxWidth="250.0" prefHeight="300.0" prefWidth="250.0">
+               <children>
+                  <ImageView fitHeight="86.0" fitWidth="152.0" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/EALogo.png" />
+                     </image>
+                  </ImageView>
+                  <JFXTextField fx:id="txtEmail" promptText="Username">
+                     <VBox.margin>
+                        <Insets top="30.0" />
+                     </VBox.margin>
+                  </JFXTextField>
+                  <JFXPasswordField fx:id="txtPassword" promptText="Password">
+                     <VBox.margin>
+                        <Insets top="20.0" />
+                     </VBox.margin>
+                  </JFXPasswordField>
+                  <HBox prefHeight="60.0" prefWidth="200.0">
+                     <children>
+                        <StackPane alignment="CENTER_LEFT" maxHeight="60.0" prefHeight="60.0" prefWidth="200.0">
+                           <children>
+                              <Label text="Remember me" />
+                           </children>
+                        </StackPane>
+                        <StackPane alignment="CENTER_RIGHT" maxHeight="60.0" prefHeight="60.0" prefWidth="200.0">
+                           <children>
+                              <JFXToggleButton fx:id="rememberMe" text=" " toggleColor="WHITE" toggleLineColor="#4b87ff" />
+                           </children>
+                        </StackPane>
+                     </children>
+                  </HBox>
+                  <StackPane prefHeight="72.0" prefWidth="200.0">
+                     <children>
+                        <JFXButton id="btnLogin" fx:id="btnLogin" onAction="#clickLogin" prefWidth="250.4" ripplerFill="WHITE" text="Log in" />
+                     </children>
+                  </StackPane>
+               </children>
+            </VBox>
+            <Text fx:id="txt" strokeType="OUTSIDE" strokeWidth="0.0" StackPane.alignment="BOTTOM_CENTER">
+               <StackPane.margin>
+                  <Insets bottom="50.0" />
+               </StackPane.margin>
+            </Text>
+         </children>
+      </StackPane>
+      <StackPane layoutX="168.0" layoutY="405.0" prefHeight="0.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+         <children>
+            <JFXButton text="Forgot password" textFill="#000000ae" />
+         </children>
+      </StackPane>
+   </children>
 </AnchorPane>
