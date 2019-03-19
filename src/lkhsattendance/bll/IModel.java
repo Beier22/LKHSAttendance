@@ -7,6 +7,8 @@ package lkhsattendance.bll;
 
 import java.util.List;
 import lkhsattendance.be.Student;
+import lkhsattendance.be.Subject;
+import lkhsattendance.be.Teacher;
 
 /**
  *
@@ -15,6 +17,8 @@ import lkhsattendance.be.Student;
 public interface IModel {
     
     public List<Student> getAllStudents();
-    
+    public List<Subject> getAllSubjects();
+    public Teacher getTeacher(Subject subject);
+    public List<Student> getStudents(Subject subject);
     
 }

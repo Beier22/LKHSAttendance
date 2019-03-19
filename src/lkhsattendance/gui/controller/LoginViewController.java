@@ -11,6 +11,8 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
+import lkhsattendance.bll.IModel;
+import lkhsattendance.bll.Model;
 
 /**
  *
@@ -20,6 +22,8 @@ public class LoginViewController implements Initializable {
     
     @FXML
     private Label label;
+    
+    IModel model = new Model();
     
     @FXML
     private void handleButtonAction(ActionEvent event) {

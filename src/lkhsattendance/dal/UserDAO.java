@@ -6,6 +6,9 @@
 package lkhsattendance.dal;
 
 import com.microsoft.sqlserver.jdbc.SQLServerDataSource;
+import java.util.List;
+import lkhsattendance.be.Student;
+import lkhsattendance.be.Subject;
 
 /**
  *
@@ -15,5 +18,13 @@ public class UserDAO {
     
     DBAccess dba = new DBAccess();
     SQLServerDataSource ds = dba.DBAccess();
+    
+    public List<Student> getAllStudents(){
+        return null; //TODO
+    }
+    
+    public List<Subject> getAllSubjects(){
+        return null; //TODO
+    }
     
 }
