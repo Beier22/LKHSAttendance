@@ -27,6 +27,11 @@ public class LKHSAttendance extends Application {
         Image icon = new Image("/lkhsattendance/gui/images/Icon.png");
         stage.getIcons().add(icon);
         
+        stage.setHeight(600);
+        stage.setWidth(800);
+        stage.setMinHeight(600);
+        stage.setMinWidth(800);
+        
         stage.setScene(scene);
         stage.show();
     }
