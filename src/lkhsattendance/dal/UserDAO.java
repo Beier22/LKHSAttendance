@@ -18,7 +18,7 @@ import lkhsattendance.be.Teacher;
 
 /**
  *
- * @author mads_
+ * @author LKHS
  */
 public class UserDAO {
     
@@ -83,3 +83,4 @@ public class UserDAO {
     }
     
 }
+

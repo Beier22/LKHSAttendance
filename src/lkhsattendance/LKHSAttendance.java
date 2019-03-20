@@ -14,7 +14,7 @@ import javafx.stage.Stage;
 
 /**
  *
- * @author mads_
+ * @author LKHS
  */
 public class LKHSAttendance extends Application {
     
@@ -44,3 +44,4 @@ public class LKHSAttendance extends Application {
     }
     
 }
+

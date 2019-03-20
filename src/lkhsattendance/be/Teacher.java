@@ -9,7 +9,7 @@ import java.util.List;
 
 /**
  *
- * @author mads_
+ * @author LKHS
  */
 public class Teacher {
     
@@ -71,3 +71,4 @@ public class Teacher {
     }
     
 }
+

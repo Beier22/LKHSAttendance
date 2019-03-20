@@ -13,7 +13,7 @@ import lkhsattendance.dal.UserDAO;
 
 /**
  *
- * @author mads_
+ * @author LKHS
  */
 public class Model implements IModel{
 
@@ -45,3 +45,4 @@ public class Model implements IModel{
     }
     
 }
+

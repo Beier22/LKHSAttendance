@@ -28,8 +28,9 @@ import lkhsattendance.bll.IModel;
 import lkhsattendance.bll.Model;
 
 /**
- *
- * @author mads_
+ * FXML Controller Class
+ * 
+ * @author LKHS
  */
 public class LoginViewController implements Initializable {
 
@@ -51,10 +52,6 @@ public class LoginViewController implements Initializable {
     List<Student> students = new ArrayList();
     List<Teacher> teachers = new ArrayList();
 
-    private void handleButtonAction(ActionEvent event) {
-        System.out.println("You clicked me!");
-        label.setText("Hello World!");
-    }
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -103,3 +100,4 @@ public class LoginViewController implements Initializable {
     }
 
 }
+

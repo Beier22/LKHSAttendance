@@ -9,7 +9,7 @@ import com.microsoft.sqlserver.jdbc.SQLServerDataSource;
 
 /**
  *
- * @author mads_
+ * @author LKHS
  */
 public class DBAccess {
     SQLServerDataSource ds;
@@ -25,3 +25,4 @@ public class DBAccess {
         return ds;
     }
 }
+

@@ -12,7 +12,7 @@ import lkhsattendance.be.Teacher;
 
 /**
  *
- * @author mads_
+ * @author LKHS
  */
 public interface IModel {
     
@@ -23,3 +23,4 @@ public interface IModel {
     public List<Student> getStudents(Subject subject);
     
 }
+

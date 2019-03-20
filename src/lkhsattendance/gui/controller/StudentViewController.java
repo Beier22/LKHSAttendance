@@ -19,7 +19,7 @@ import lkhsattendance.be.Student;
 /**
  * FXML Controller class
  *
- * @author mads_
+ * @author LKHS
  */
 public class StudentViewController implements Initializable {
 
@@ -59,3 +59,4 @@ public class StudentViewController implements Initializable {
     }
     
 }
+

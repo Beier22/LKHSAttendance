@@ -10,7 +10,7 @@ import java.util.List;
 
 /**
  *
- * @author mads_
+ * @author LKHS
  */
 public class Subject {
     
@@ -52,3 +52,4 @@ public class Subject {
     }
     
 }
+
