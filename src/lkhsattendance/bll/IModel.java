@@ -17,6 +17,7 @@ import lkhsattendance.be.Teacher;
 public interface IModel {
     
     public List<Student> getAllStudents();
+    public List<Teacher> getAllTeachers();
     public List<Subject> getAllSubjects();
     public Teacher getTeacher(Subject subject);
     public List<Student> getStudents(Subject subject);

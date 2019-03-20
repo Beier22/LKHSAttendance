@@ -38,5 +38,10 @@ public class Model implements IModel{
     public List<Student> getStudents(Subject subject) {
         return subject.getStudents();
     }
+
+    @Override
+    public List<Teacher> getAllTeachers() {
+        return dao.getAllTeachers();
+    }
     
 }

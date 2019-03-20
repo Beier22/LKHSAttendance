@@ -14,6 +14,7 @@ import javafx.scene.chart.PieChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.text.Text;
+import lkhsattendance.be.Student;
 
 /**
  * FXML Controller class
@@ -32,13 +33,15 @@ public class StudentViewController implements Initializable {
     private Button btnBack;
     @FXML
     private Button btnRequest;
+    
+    private Student student;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        
     }    
 
     @FXML
@@ -47,6 +50,12 @@ public class StudentViewController implements Initializable {
 
     @FXML
     private void btnHandleRequest(ActionEvent event) {
+    }
+
+    public void setUp(Student student) {
+        this.student = student;
+        System.out.println("Student: " + student);
+        txtWelcome.setText("Welcome, " + student.getNameF());
     }
     
 }

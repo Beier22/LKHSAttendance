@@ -13,16 +13,38 @@ import java.util.List;
  */
 public class Teacher {
     
-    private String name;
+    private int id;
+    private String nameF;
+    private String nameL;
     private List<Subject> subjects;
+    private String email;
+    private String password;
 
-    public String getName() {
-        return name;
+    public int getId() {
+        return id;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setId(int id) {
+        this.id = id;
     }
+
+    public String getNameF() {
+        return nameF;
+    }
+
+    public void setNameF(String nameF) {
+        this.nameF = nameF;
+    }
+
+    public String getNameL() {
+        return nameL;
+    }
+
+    public void setNameL(String nameL) {
+        this.nameL = nameL;
+    }
+
+    
 
     public List<Subject> getSubjects() {
         return subjects;
@@ -30,6 +52,22 @@ public class Teacher {
 
     public void setSubjects(List<Subject> subjects) {
         this.subjects = subjects;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
     
 }

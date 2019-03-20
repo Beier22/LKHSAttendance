@@ -15,6 +15,8 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.input.MouseEvent;
+import lkhsattendance.be.Student;
+import lkhsattendance.be.Teacher;
 
 /**
  * FXML Controller class
@@ -30,12 +32,14 @@ public class TeacherViewController implements Initializable {
     @FXML
     private JFXDatePicker datePicker;
     @FXML
-    private JFXListView<?> lstStudents;
+    private JFXListView<Student> lstStudents;
     @FXML
     private JFXButton btnBack;
     @FXML
     private JFXButton btnMoreInfo;
 
+    private Teacher teacher;
+    
     /**
      * Initializes the controller class.
      */
@@ -62,6 +66,11 @@ public class TeacherViewController implements Initializable {
 
     @FXML
     private void btnMore(ActionEvent event) {
+    }
+    
+    public void setUp(Teacher teacher){
+        this.teacher = teacher;
+        System.out.println("Teacher: " + teacher.getNameF());
     }
     
 }
