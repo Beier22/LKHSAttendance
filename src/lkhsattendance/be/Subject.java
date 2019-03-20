@@ -15,10 +15,11 @@ import java.util.List;
 public class Subject {
     
     private String name;
-    private List<Date> days;
+    private List<Date> days; //Forslag: Måske vi kan lave en liste over hvilke ugedage i stedet for datoer?(fx 1-3-5 for mandag-onsdag-fredag)
     private List<Student> students;
     private Teacher teacher;
-
+    //Evt tilføje classroom field, hvis vi tænker det kunne være relevant
+    
     public String getName() {
         return name;
     }
@@ -52,4 +53,5 @@ public class Subject {
     }
     
 }
+
 

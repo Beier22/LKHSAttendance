@@ -17,7 +17,8 @@ public class Student {
     private int id;
     private String nameL;
     private String nameF;
-    private List<Date> days;
+    private List<Date> daysAttendance;
+    private List<Date> daysAbsence;
     private List<Subject> subjects;
     private String email;
     private String password;
@@ -47,14 +48,20 @@ public class Student {
         this.nameF = nameF;
     }
 
-    public List<Date> getDays() {
-        return days;
+    public List<Date> getDaysAttendance() {
+        return daysAttendance;
     }
 
-    public void setDays(List<Date> days) {
-        this.days = days;
+    public void setDaysAttendance(List<Date> daysAttendance) {
+        this.daysAttendance = daysAttendance;
+    }
+    public List<Date> getDaysAbsence() {
+        return daysAbsence;
     }
 
+    public void setDaysAbsence(List<Date> daysAbsence) {
+        this.daysAbsence = daysAbsence;
+    }
     public List<Subject> getSubjects() {
         return subjects;
     }
@@ -89,4 +96,5 @@ public class Student {
     
     
 }
+
 

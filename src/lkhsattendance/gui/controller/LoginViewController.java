@@ -35,7 +35,7 @@ import lkhsattendance.bll.Model;
 public class LoginViewController implements Initializable {
 
     private Label label;
-
+    
     IModel model = new Model();
 
     @FXML
@@ -48,7 +48,7 @@ public class LoginViewController implements Initializable {
     private JFXButton btnLogin;
     @FXML
     private Text txt;
-
+    
     List<Student> students = new ArrayList();
     List<Teacher> teachers = new ArrayList();
 
@@ -100,4 +100,5 @@ public class LoginViewController implements Initializable {
     }
 
 }
+
 
