@@ -5,7 +5,9 @@
  */
 package lkhsattendance.bll;
 
+import java.sql.Date;
 import java.util.List;
+import lkhsattendance.be.Clss;
 import lkhsattendance.be.Student;
 import lkhsattendance.be.Subject;
 import lkhsattendance.be.Teacher;
@@ -42,6 +44,26 @@ public class Model implements IModel{
     @Override
     public List<Teacher> getAllTeachers() {
         return dao.getAllTeachers();
+    }
+
+    @Override
+    public List<String> getUnattendedDays(Student student) {
+        return dao.getUnattendedDays(student);
+    }
+
+    @Override
+    public List<String> getAttendedDays(Student student) {
+        return dao.getAttendedDays(student);
+    }
+
+    @Override
+    public List<Student> getUnattendingStudents(Date date, int classId) {
+        return dao.getUnattendingStudents(date, classId);
+    }
+
+    @Override
+    public List<Clss> getTeachingClasses(Teacher teacher) {
+        return dao.getTeachingClasses(teacher);
     }
     
 }

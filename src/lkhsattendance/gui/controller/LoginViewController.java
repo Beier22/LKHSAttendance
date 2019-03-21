@@ -11,6 +11,9 @@ import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.controls.JFXToggleButton;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Date;
+import java.time.LocalDate;
+import java.time.Month;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -80,6 +83,7 @@ public class LoginViewController implements Initializable {
                 }
             }
         });
+        
     }
 
     @FXML
@@ -88,43 +92,37 @@ public class LoginViewController implements Initializable {
         String inputPassword = txtPassword.getText();
 
         for (Student student : students) {
-            if (student.getEmail().equals(inputEmail)) {
+            if (student.getEmail().toLowerCase().equals(inputEmail.toLowerCase())) {
                 if (student.getPassword().equals(inputPassword)) {
-                    Stage stage = (Stage) btnLogin.getScene().getWindow();//new Stage();
+                    Stage stage = (Stage) btnLogin.getScene().getWindow();
                     FXMLLoader loader = new FXMLLoader(getClass().getResource("/lkhsattendance/gui/view/StudentView.fxml"));
-                    stage.setHeight(stage.getHeight());
-                    stage.setWidth(stage.getWidth());
-                    stage.setMinHeight(600);
-                    stage.setMinWidth(800);
                     stage.setScene(new Scene(loader.load()));
                     StudentViewController cont = loader.getController();
                     cont.setUp(student);
                     return;
                 } else {
                     System.out.println("Wrong password! (LoginViewController, clickLogin, Student)");
+                    return;
                 }
             }
         }
 
         for (Teacher teacher : teachers) {
-            if (teacher.getEmail().equals(inputEmail)) {
+            if (teacher.getEmail().toLowerCase().equals(inputEmail.toLowerCase())) {
                 if (teacher.getPassword().equals(inputPassword)) {
-                    Stage stage = (Stage) btnLogin.getScene().getWindow();//new Stage();
+                    Stage stage = (Stage) btnLogin.getScene().getWindow();
                     FXMLLoader loader = new FXMLLoader(getClass().getResource("/lkhsattendance/gui/view/TeacherView.fxml"));
-                    stage.setHeight(stage.getHeight());
-                    stage.setWidth(stage.getWidth());
-                    stage.setMinHeight(600);
-                    stage.setMinWidth(800);
                     stage.setScene(new Scene(loader.load()));
                     TeacherViewController cont = loader.getController();
                     cont.setUp(teacher);
                     return;
                 } else {
-                    System.out.println("Wrong password! (LoginViewController, clickLogin, Teacher");
+                    System.out.println("Wrong password! (LoginViewController, clickLogin, Teacher)");
+                    return;
                 }
             }
         }
-        System.out.println("User not found! (LoginViewController, clickLogin");
+        System.out.println("User not found! (LoginViewController, clickLogin)");
     }
 
 }

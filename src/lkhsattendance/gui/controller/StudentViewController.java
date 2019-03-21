@@ -5,16 +5,25 @@
  */
 package lkhsattendance.gui.controller;
 
+import java.io.IOException;
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.chart.PieChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
+import javafx.scene.image.Image;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 import lkhsattendance.be.Student;
+import lkhsattendance.bll.IModel;
+import lkhsattendance.bll.Model;
 
 /**
  * FXML Controller class
@@ -26,7 +35,7 @@ public class StudentViewController implements Initializable {
     @FXML
     private Text txtWelcome;
     @FXML
-    private ListView<?> listView;
+    private ListView<String> listView;
     @FXML
     private PieChart pie;
     @FXML
@@ -35,6 +44,8 @@ public class StudentViewController implements Initializable {
     private Button btnRequest;
     
     private Student student;
+    
+    private IModel model = new Model();
 
     /**
      * Initializes the controller class.
@@ -45,7 +56,12 @@ public class StudentViewController implements Initializable {
     }    
 
     @FXML
-    private void handleBtnBack(ActionEvent event) {
+    private void handleBtnBack(ActionEvent event) throws IOException {
+        Stage stage = (Stage) btnBack.getScene().getWindow();
+        Parent root = FXMLLoader.load(getClass().getResource("/lkhsattendance/gui/view/LoginView.fxml"));
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
     }
 
     @FXML
@@ -56,6 +72,7 @@ public class StudentViewController implements Initializable {
         this.student = student;
         System.out.println("Student: " + student.getNameF());
         txtWelcome.setText("Welcome, " + student.getNameF());
+        listView.getItems().addAll(model.getUnattendedDays(student));
     }
     
 }

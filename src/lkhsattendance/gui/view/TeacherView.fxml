@@ -18,7 +18,7 @@
                <children>
                   <StackPane alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" prefHeight="25.0" prefWidth="10000.0">
                      <children>
-                        <JFXComboBox fx:id="pickTeacher" prefHeight="25.0" prefWidth="200.0" promptText="Class" />
+                        <JFXComboBox fx:id="pickClass" onAction="#clickPickClass" prefHeight="25.0" prefWidth="200.0" promptText="Class" />
                      </children>
                   </StackPane>
                   <StackPane maxWidth="1.7976931348623157E308" prefHeight="25.0" prefWidth="10000.0">

@@ -32,6 +32,11 @@ public class Student {
         this.id = id;
     }
 
+    @Override
+    public String toString(){
+        return nameL + ", " + nameF;
+    }
+    
     public String getNameL() {
         return nameL;
     }
