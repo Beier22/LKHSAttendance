@@ -30,6 +30,33 @@ public class UserDAO {
     DBAccess dba = new DBAccess();
     SQLServerDataSource ds = dba.DBAccess();
     
+    public void unattendance(Date date) {
+    String sql = "INSERT INTO [Attendance2].dbo.Attendance (StudentID, yyyymmdd, Attendance) SELECT [Student].StudentID, ?, 0 FROM [Student] ";
+    try (Connection con = ds.getConnection()) {
+        PreparedStatement ps = con.prepareStatement(sql);
+        ps.setDate(1, date);
+        ps.addBatch();
+        ps.executeBatch();
+    } catch (SQLException ex) 
+        {
+            System.out.println("unattendance taken");
+        }
+    }
+    
+    public void login(int StudentID, Date date) {
+    String sql = "UPDATE [Attendance2].[dbo].[Attendance] SET attendance=1 WHERE StudentID=? AND yyyymmdd=?";
+    try (Connection con = ds.getConnection()) {
+        PreparedStatement ps = con.prepareStatement(sql);
+        ps.setInt(1, StudentID);
+        ps.setDate(2, date);
+        ps.addBatch();
+        ps.executeBatch();
+    } catch (SQLException ex) 
+        {
+            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
     public Student getStudentFromRS(ResultSet rs) {
         try {
             Student student = new Student();

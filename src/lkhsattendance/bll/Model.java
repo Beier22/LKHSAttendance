@@ -65,6 +65,16 @@ public class Model implements IModel{
     public List<Clss> getTeachingClasses(Teacher teacher) {
         return dao.getTeachingClasses(teacher);
     }
+
+    @Override
+    public void unattendance(Date date) {
+        dao.unattendance(date);
+    }
+
+    @Override
+    public void login(int StudentID, Date date) {
+        dao.login(StudentID, date);
+    }
     
 }
 

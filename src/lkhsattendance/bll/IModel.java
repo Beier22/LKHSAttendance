@@ -27,7 +27,8 @@ public interface IModel {
     public List<String> getAttendedDays(Student student);
     public List<Student> getUnattendingStudents(Date date, int classId);
     public List<Clss> getTeachingClasses(Teacher teacher);
-    
+    public void unattendance(Date date);
+    public void login(int StudentID, Date date);
 }
 
 

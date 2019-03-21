@@ -12,8 +12,11 @@ import com.jfoenix.controls.JFXToggleButton;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.Month;
+import java.time.ZoneId;
+import static java.time.temporal.TemporalQueries.localDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -58,6 +61,9 @@ public class LoginViewController implements Initializable {
     List<Student> students = new ArrayList();
     List<Teacher> teachers = new ArrayList();
 
+    LocalDate localDate = LocalDate.now();
+    Date date = java.sql.Date.valueOf(localDate);
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         students = model.getAllStudents();
@@ -83,7 +89,9 @@ public class LoginViewController implements Initializable {
                 }
             }
         });
-        
+        LocalDate localDate = LocalDate.now();
+        Date date = java.sql.Date.valueOf(localDate);
+        model.unattendance(date); //HER ER METODEN SOM SØRGER FOR AT GØR STUDENTS ABSENT
     }
 
     @FXML
@@ -94,6 +102,7 @@ public class LoginViewController implements Initializable {
         for (Student student : students) {
             if (student.getEmail().toLowerCase().equals(inputEmail.toLowerCase())) {
                 if (student.getPassword().equals(inputPassword)) {
+                    model.login(student.getId(), date); //HER ER LOG IND METODEN KALDET
                     Stage stage = (Stage) btnLogin.getScene().getWindow();
                     FXMLLoader loader = new FXMLLoader(getClass().getResource("/lkhsattendance/gui/view/StudentView.fxml"));
                     stage.setScene(new Scene(loader.load()));
