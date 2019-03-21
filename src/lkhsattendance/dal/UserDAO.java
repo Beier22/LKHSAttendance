@@ -38,7 +38,7 @@ public class UserDAO {
             student.setNameL(rs.getString("StudentLName"));
             student.setClassId(rs.getInt("StudentClassID"));
             student.setEmail(rs.getString("email"));
-            student.setPassword(rs.getString("password"));
+            student.setPassword(rs.getString("pass"));
             return student;
         } catch (SQLException ex) {
             System.out.println("Database error (Student ResultSet)");
@@ -85,7 +85,7 @@ public class UserDAO {
                 teacher.setNameF(rs.getString("TeacherFName"));
                 teacher.setNameL(rs.getString("TeacherLName"));
                 teacher.setEmail(rs.getString("email"));
-                teacher.setPassword(rs.getString("password"));
+                teacher.setPassword(rs.getString("pass"));
                 teachers.add(teacher);
             }
             return teachers;
@@ -99,12 +99,12 @@ public class UserDAO {
     public List<String> getUnattendedDays(Student student){
         try (Connection con = ds.getConnection()){
             List<String> dates = new ArrayList();
-            String sql = "SELECT Date FROM Attendance WHERE StudentID = ? AND Attendance = 0";
+            String sql = "SELECT yyyymmdd FROM Attendance WHERE StudentID = ? AND Attendance = 0";
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, student.getId());
             ResultSet rs = ps.executeQuery();
             while(rs.next()){
-                dates.add(rs.getString("Date"));
+                dates.add(rs.getString("yyyymmdd"));
             }
             return dates;
         } catch (SQLException sqle) {
@@ -117,12 +117,12 @@ public class UserDAO {
     public List<String> getAttendedDays(Student student){
         try (Connection con = ds.getConnection()){
             List<String> dates = new ArrayList();
-            String sql = "SELECT Date FROM Attendance WHERE StudentID = ? AND Attendance = 1";
+            String sql = "SELECT yyyymmdd FROM Attendance WHERE StudentID = ? AND Attendance = 1";
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, student.getId());
             ResultSet rs = ps.executeQuery();
             while(rs.next()){
-                dates.add(rs.getString("Date"));
+                dates.add(rs.getString("yyyymmdd"));
             }
             return dates;
         } catch (SQLException sqle) {
@@ -135,11 +135,11 @@ public class UserDAO {
     public List<Student> getUnattendingStudents(Date date, int classId){
         try (Connection con = ds.getConnection()){
             List<Student> students = new ArrayList();
-            String sql = "SELECT s.StudentID, s.StudentFName, s.StudentLName, s.StudentClassID, s.email, s.password\n"
+            String sql = "SELECT s.StudentID, s.StudentFName, s.StudentLName, s.StudentClassID, s.email, s.pass\n"
                     + "FROM Student AS s \n"
                     + "JOIN Class as c ON s.StudentClassID = c.ClassID\n"
                     + "JOIN Attendance as a ON s.StudentID = a.StudentID\n"
-                    + "WHERE c.ClassID = ? AND a.Date = ? AND a.Attendance = 0";
+                    + "WHERE c.ClassID = ? AND a.yyyymmdd = ? AND a.Attendance = 0";
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, classId);
             ps.setDate(2, date);
