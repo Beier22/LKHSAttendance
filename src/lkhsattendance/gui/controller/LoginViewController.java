@@ -15,11 +15,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import lkhsattendance.be.Student;
@@ -29,13 +32,13 @@ import lkhsattendance.bll.Model;
 
 /**
  * FXML Controller Class
- * 
+ *
  * @author LKHS
  */
 public class LoginViewController implements Initializable {
 
     private Label label;
-    
+
     IModel model = new Model();
 
     @FXML
@@ -48,15 +51,35 @@ public class LoginViewController implements Initializable {
     private JFXButton btnLogin;
     @FXML
     private Text txt;
-    
+
     List<Student> students = new ArrayList();
     List<Teacher> teachers = new ArrayList();
-
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         students = model.getAllStudents();
         teachers = model.getAllTeachers();
+
+        //Pressing enter while in username field will swap to password field
+        txtEmail.setOnKeyPressed(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent event) {
+                if (event.getCode() == KeyCode.ENTER) {
+                    txtPassword.requestFocus();
+                }
+            }
+
+        });
+
+        //Pressing enter while in password field will press login button
+        txtPassword.setOnKeyPressed(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent event) {
+                if (event.getCode() == KeyCode.ENTER) {
+                    btnLogin.fire();
+                }
+            }
+        });
     }
 
     @FXML
@@ -76,7 +99,9 @@ public class LoginViewController implements Initializable {
                     stage.setScene(new Scene(loader.load()));
                     StudentViewController cont = loader.getController();
                     cont.setUp(student);
-                    
+                    return;
+                } else {
+                    System.out.println("Wrong password! (LoginViewController, clickLogin, Student)");
                 }
             }
         }
@@ -93,12 +118,13 @@ public class LoginViewController implements Initializable {
                     stage.setScene(new Scene(loader.load()));
                     TeacherViewController cont = loader.getController();
                     cont.setUp(teacher);
-                    
+                    return;
+                } else {
+                    System.out.println("Wrong password! (LoginViewController, clickLogin, Teacher");
                 }
             }
         }
+        System.out.println("User not found! (LoginViewController, clickLogin");
     }
 
 }
-
-

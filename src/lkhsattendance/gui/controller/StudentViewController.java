@@ -54,7 +54,7 @@ public class StudentViewController implements Initializable {
 
     public void setUp(Student student) {
         this.student = student;
-        System.out.println("Student: " + student);
+        System.out.println("Student: " + student.getNameF());
         txtWelcome.setText("Welcome, " + student.getNameF());
     }
     

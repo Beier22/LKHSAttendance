@@ -43,7 +43,7 @@ public class UserDAO {
             }
             return students;
         } catch (SQLException sqle) {
-            System.out.println("Database error (Students)");
+            System.out.println("Database error (UserDAO, Students)");
         }
         
         return null;
@@ -53,7 +53,7 @@ public class UserDAO {
         try (Connection con = ds.getConnection()){
             //TODO
         } catch (SQLException sqle) {
-            System.out.println("Database error (Subjects)");
+            System.out.println("Database error (UserDAO, Subjects)");
         }
         
         return null;
@@ -76,7 +76,7 @@ public class UserDAO {
             }
             return teachers;
         } catch (SQLException sqle) {
-            System.out.println("Database error (Teachers)");
+            System.out.println("Database error (UserDAO, Teachers)");
         }
         
         return null;
