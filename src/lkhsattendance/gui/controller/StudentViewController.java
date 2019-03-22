@@ -7,6 +7,7 @@ package lkhsattendance.gui.controller;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Collections;
 import java.util.List;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -52,7 +53,7 @@ public class StudentViewController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
+        btnBack.setText("Log out");
     }    
 
     @FXML
@@ -72,7 +73,9 @@ public class StudentViewController implements Initializable {
         this.student = student;
         System.out.println("Student: " + student.getNameF());
         txtWelcome.setText("Welcome, " + student.getNameF());
-        listView.getItems().addAll(model.getUnattendedDays(student));
+        List<String> yada = model.getUnattendedDays(student);
+        Collections.reverse(yada);
+        listView.getItems().addAll(yada);
     }
     
 }

@@ -41,7 +41,7 @@ import lkhsattendance.bll.Model;
 public class TeacherViewController implements Initializable {
 
     @FXML
-    private JFXComboBox<?> menu;
+    private JFXComboBox<String> menu;
     @FXML
     private JFXComboBox<Clss> pickClass;
     @FXML
@@ -55,6 +55,8 @@ public class TeacherViewController implements Initializable {
 
     private Teacher teacher;
     private Clss selectedClass;
+    private Date selectedDate;
+    private ObservableList<String> menuItems = FXCollections.observableArrayList();
     
     private IModel model = new Model();
     
@@ -65,7 +67,14 @@ public class TeacherViewController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        selectedDate = Date.valueOf(LocalDate.now());
         datePicker.setValue(LocalDate.now());
+        menuItems.addAll("Absent Students", "All Students", "Attending Students");
+        btnBack.setText("Log out");
+        menu.setItems(menuItems);
+        menu.getSelectionModel().select(0);
+        
+        
     }    
 
     @FXML
@@ -74,8 +83,9 @@ public class TeacherViewController implements Initializable {
 
     @FXML
     private void pickDate(ActionEvent event) {
+        selectedDate = Date.valueOf(datePicker.getValue());
         lstStudents.getItems().clear();
-        lstStudents.getItems().addAll(model.getUnattendingStudents(Date.valueOf(datePicker.getValue()), 1));
+        lstStudents.getItems().addAll(model.getUnattendingStudents(selectedDate, selectedClass.getId()));
     }
 
     @FXML
@@ -109,7 +119,7 @@ public class TeacherViewController implements Initializable {
     private void clickPickClass(ActionEvent event) {
         selectedClass = pickClass.getSelectionModel().getSelectedItem();
         lstStudents.getItems().clear();
-        lstStudents.getItems().addAll(model.getUnattendingStudents(Date.valueOf(LocalDate.now()), selectedClass.getId()));
+        lstStudents.getItems().addAll(model.getUnattendingStudents(selectedDate, selectedClass.getId()));
     }
     
     
