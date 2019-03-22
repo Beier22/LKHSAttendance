@@ -70,9 +70,9 @@ public class TeacherViewController implements Initializable {
         selectedDate = Date.valueOf(LocalDate.now());
         datePicker.setValue(LocalDate.now());
         menuItems.addAll("Absent Students", "All Students", "Attending Students");
-        btnBack.setText("Log out");
         menu.setItems(menuItems);
         menu.getSelectionModel().select(0);
+        btnBack.setText("Log out");
         
         
     }    
@@ -84,8 +84,7 @@ public class TeacherViewController implements Initializable {
     @FXML
     private void pickDate(ActionEvent event) {
         selectedDate = Date.valueOf(datePicker.getValue());
-        lstStudents.getItems().clear();
-        lstStudents.getItems().addAll(model.getUnattendingStudents(selectedDate, selectedClass.getId()));
+        setListView(selectedDate, selectedClass);
     }
 
     @FXML
@@ -112,14 +111,19 @@ public class TeacherViewController implements Initializable {
         pickClass.setItems(classes);
         pickClass.getSelectionModel().select(0);
         selectedClass = pickClass.getSelectionModel().getSelectedItem();
-        lstStudents.getItems().addAll(model.getUnattendingStudents(Date.valueOf(LocalDate.now()), selectedClass.getId()));
+        lstStudents.getItems().addAll(model.getUnattendingStudents(selectedDate, selectedClass.getId()));
     }
 
     @FXML
     private void clickPickClass(ActionEvent event) {
         selectedClass = pickClass.getSelectionModel().getSelectedItem();
+        setListView(selectedDate, selectedClass);
+    }
+    
+    private void setListView(Date date, Clss clss){
+        
         lstStudents.getItems().clear();
-        lstStudents.getItems().addAll(model.getUnattendingStudents(selectedDate, selectedClass.getId()));
+        lstStudents.getItems().addAll(model.getUnattendingStudents(date, clss.getId()));
     }
     
     
