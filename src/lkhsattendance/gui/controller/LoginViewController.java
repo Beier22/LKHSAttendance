@@ -12,14 +12,11 @@ import com.jfoenix.controls.JFXToggleButton;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Date;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.time.Month;
-import java.time.ZoneId;
-import static java.time.temporal.TemporalQueries.localDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.prefs.Preferences;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -57,6 +54,8 @@ public class LoginViewController implements Initializable {
     private JFXButton btnLogin;
     @FXML
     private Text txt;
+    
+    Preferences prefs = Preferences.userNodeForPackage(this.getClass());
 
     List<Student> students = new ArrayList();
     List<Teacher> teachers = new ArrayList();
@@ -77,7 +76,6 @@ public class LoginViewController implements Initializable {
                     txtPassword.requestFocus();
                 }
             }
-
         });
 
         //Pressing enter while in password field will press login button
@@ -89,9 +87,15 @@ public class LoginViewController implements Initializable {
                 }
             }
         });
-        LocalDate localDate = LocalDate.now();
-        Date date = java.sql.Date.valueOf(localDate);
+        
+        Date date = Date.valueOf(LocalDate.now());
         model.unattendance(date); //HER ER METODEN SOM SØRGER FOR AT GØR STUDENTS ABSENT
+        
+        if(prefs.getBoolean("selected", true)){
+            txtEmail.setText(prefs.get("lastEmail", null));
+            txtPassword.setText(prefs.get("lastPassword", null));
+            rememberMe.setSelected(true);
+        }
     }
 
     @FXML
@@ -108,6 +112,7 @@ public class LoginViewController implements Initializable {
                     stage.setScene(new Scene(loader.load()));
                     StudentViewController cont = loader.getController();
                     cont.setUp(student);
+                    setPrefs(inputEmail, inputPassword);
                     return;
                 } else {
                     System.out.println("Wrong password! (LoginViewController, clickLogin, Student)");
@@ -124,6 +129,7 @@ public class LoginViewController implements Initializable {
                     stage.setScene(new Scene(loader.load()));
                     TeacherViewController cont = loader.getController();
                     cont.setUp(teacher);
+                    setPrefs(inputEmail, inputPassword);
                     return;
                 } else {
                     System.out.println("Wrong password! (LoginViewController, clickLogin, Teacher)");
@@ -132,6 +138,16 @@ public class LoginViewController implements Initializable {
             }
         }
         System.out.println("User not found! (LoginViewController, clickLogin)");
+    }
+    
+    private void setPrefs(String email, String password){
+        if(rememberMe.isSelected()){
+            prefs.put("lastEmail", email);
+            prefs.put("lastPassword", password);
+            prefs.putBoolean("selected", true);
+        }
+        else
+            prefs.putBoolean("selected", false);
     }
 
 }
