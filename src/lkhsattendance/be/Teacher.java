@@ -19,6 +19,11 @@ public class Teacher {
     private List<Subject> subjects;
     private String email;
     private String password;
+    
+    @Override
+    public String toString(){
+        return nameL + ", " + nameF;
+    }
 
     public int getId() {
         return id;

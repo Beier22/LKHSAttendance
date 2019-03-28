@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTabPane?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" styleClass="mainFxmlClass" stylesheets="@../css/AdminView.css" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/10.0.1" fx:controller="lkhsattendance.gui.controller.AdminViewController">
+   <children>
+      <VBox alignment="TOP_CENTER" layoutX="332.0" layoutY="161.0" prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="30.0">
+         <children>
+            <Label text="Admin User Interface">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <HBox minHeight="40.0" prefHeight="40.0">
+               <children>
+                  <StackPane alignment="CENTER_LEFT" prefHeight="150.0" prefWidth="10000.0">
+                     <children>
+                        <Button id="btnBack" fx:id="btnLogout" mnemonicParsing="false" onAction="#clickLogout" text="Log out">
+                           <StackPane.margin>
+                              <Insets left="10.0" />
+                           </StackPane.margin>
+                        </Button>
+                     </children>
+                  </StackPane>
+                  <StackPane alignment="CENTER_RIGHT" minHeight="40.0" prefHeight="40.0" prefWidth="10000.0">
+                     <children>
+                        <JFXTextField alignment="CENTER_RIGHT" maxWidth="150.0" prefWidth="150.0" promptText="Search" />
+                     </children>
+                  </StackPane>
+               </children>
+            </HBox>
+            <JFXTabPane prefHeight="10000.0" prefWidth="580.0">
+               <tabs>
+                  <Tab text="Teachers">
+                    <content>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <VBox layoutX="130.0" prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                 <children>
+                                    <ListView fx:id="lstTeachers" prefHeight="10000.0" prefWidth="200.0" />
+                                    <HBox minHeight="30.0" prefHeight="30.0" prefWidth="200.0">
+                                       <children>
+                                          <StackPane alignment="CENTER_LEFT" prefHeight="150.0" prefWidth="10000.0">
+                                             <children>
+                                                <JFXButton text="Remove Teacher">
+                                                   <StackPane.margin>
+                                                      <Insets left="30.0" />
+                                                   </StackPane.margin>
+                                                </JFXButton>
+                                             </children>
+                                          </StackPane>
+                                          <StackPane alignment="CENTER_RIGHT" prefHeight="150.0" prefWidth="10000.0">
+                                             <children>
+                                                <JFXButton text="More Info">
+                                                   <StackPane.margin>
+                                                      <Insets right="30.0" />
+                                                   </StackPane.margin>
+                                                </JFXButton>
+                                             </children>
+                                          </StackPane>
+                                       </children>
+                                    </HBox>
+                                 </children>
+                              </VBox>
+                           </children>
+                        </AnchorPane>
+                    </content>
+                  </Tab>
+                  <Tab text="Students">
+                    <content>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <VBox layoutX="146.0" layoutY="29.0" prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                 <children>
+                                    <ListView fx:id="lstStudents" prefHeight="10000.0" prefWidth="200.0" />
+                                    <HBox minHeight="30.0" prefHeight="30.0" prefWidth="200.0">
+                                       <children>
+                                          <StackPane alignment="CENTER_LEFT" prefHeight="150.0" prefWidth="10000.0">
+                                             <children>
+                                                <JFXButton text="Remove Student">
+                                                   <StackPane.margin>
+                                                      <Insets left="30.0" />
+                                                   </StackPane.margin>
+                                                </JFXButton>
+                                             </children>
+                                          </StackPane>
+                                          <StackPane alignment="CENTER_RIGHT" prefHeight="150.0" prefWidth="10000.0">
+                                             <children>
+                                                <JFXButton text="More Info">
+                                                   <StackPane.margin>
+                                                      <Insets right="30.0" />
+                                                   </StackPane.margin>
+                                                </JFXButton>
+                                             </children>
+                                          </StackPane>
+                                       </children>
+                                    </HBox>
+                                 </children>
+                              </VBox>
+                           </children>
+                        </AnchorPane>
+                    </content>
+                  </Tab>
+                  <Tab text="Add User">
+                    <content>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                    </content>
+                  </Tab>
+               </tabs>
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
+            </JFXTabPane>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>

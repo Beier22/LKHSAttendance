@@ -102,6 +102,19 @@ public class LoginViewController implements Initializable {
     private void clickLogin(ActionEvent event) throws IOException {
         String inputEmail = txtEmail.getText();
         String inputPassword = txtPassword.getText();
+        
+        if(inputEmail.toLowerCase().equals("admin")){
+            if(inputPassword.equals("")){
+                Stage stage = (Stage) btnLogin.getScene().getWindow();
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/lkhsattendance/gui/view/AdminView.fxml"));
+                stage.setScene(new Scene(loader.load()));
+                setPrefs(inputEmail, inputPassword);
+                return;
+            } else {
+                System.out.println("Incorrect password!");
+                return;
+            }
+        }
 
         for (Student student : students) {
             if (student.getEmail().toLowerCase().equals(inputEmail.toLowerCase())) {
