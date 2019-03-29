@@ -40,7 +40,7 @@ public class UserDAO {
             ps.addBatch();
             ps.executeBatch();
         } catch (SQLException ex) {
-            System.out.println("unattendance taken");
+            System.out.println("unattendance registration already complete for one or more students");
         }
     }
 
@@ -57,22 +57,7 @@ public class UserDAO {
         }
     }
 
-    public Student getStudentFromRS(ResultSet rs) {
-        try {
-            Student student = new Student();
-            student.setId(rs.getInt("StudentID"));
-            student.setNameF(rs.getString("StudentFName"));
-            student.setNameL(rs.getString("StudentLName"));
-            student.setClassId(rs.getInt("StudentClassID"));
-            student.setEmail(rs.getString("email"));
-            student.setPassword(rs.getString("pass"));
-            return student;
-        } catch (SQLException ex) {
-            System.out.println("Database error (Student ResultSet)");
-        }
-        return null;
-    }
-
+    
     public List<Student> getAllStudents() {
         try (Connection con = ds.getConnection()) {
 
@@ -106,7 +91,7 @@ public class UserDAO {
         return null;
     }
 
-    public void addAttendanceData() {
+    public List<Student> getAllStudentsWithAttendance() {
         try (Connection con = ds.getConnection()) {
             List<Student> students = getAllStudents();
 
@@ -140,7 +125,7 @@ public class UserDAO {
                 }
 
             }
-
+            return students;
 
         } catch (SQLServerException ex) {
             Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -148,14 +133,36 @@ public class UserDAO {
             Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-
+        return null;
     }
+    
+    
 
     public List<Subject> getAllSubjects() {
         try (Connection con = ds.getConnection()) {
-            //TODO
+
+            List<Subject> subjects = new ArrayList();
+
+            String sql = "SELECT * FROM Subject";
+            Statement stmt = con.createStatement();
+            ResultSet rs = stmt.executeQuery(sql);
+
+            while (rs.next()) {
+                
+                Subject subject = new Subject();
+                subject.setId(rs.getInt("SubjectID"));
+                subject.setName(rs.getString("SubjectName"));
+                subject.setDescription(rs.getString("SubjectDescription"));
+
+                subjects.add(subject);
+
+            }
+
+            return subjects;
         } catch (SQLException sqle) {
-            System.out.println("Database error (UserDAO, Subjects)");
+            System.out.println("Error, DAO, getAllSubjects");
+            sqle.printStackTrace();
+            System.out.println();
         }
 
         return null;
@@ -183,86 +190,85 @@ public class UserDAO {
 
         return null;
     }
-
-    public List<String> getUnattendedDays(Student student) {
+    
+        public List<Teacher> getAllTeachersWithClassesAndSubjects() {
         try (Connection con = ds.getConnection()) {
-            List<String> dates = new ArrayList();
-            String sql = "SELECT yyyymmdd FROM Attendance WHERE StudentID = ? AND Attendance = 0";
-            PreparedStatement ps = con.prepareStatement(sql);
-            ps.setInt(1, student.getId());
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                dates.add(rs.getString("yyyymmdd"));
+            List<Teacher> teachers = getAllTeachers();
+            List<Clss> classes = getAllClasses();
+            List<Subject> subjects = getAllSubjects();
+            String sql = "SELECT t.TeacherID, s.SubjectID, c.ClassID FROM [Attendance2].[dbo].Teacher AS t " +
+"INNER JOIN [Attendance2].[dbo].[Subject] as s ON s.TeacherID=t.TeacherID " +
+"INNER JOIN [Attendance2].[dbo].[Class] as c ON s.ClassID=c.ClassID " +
+"ORDER BY TeacherID";
+
+           
+            Statement stmt = con.createStatement();
+            ResultSet rs = stmt.executeQuery(sql);
+
+            while (rs.next()) 
+            {
+                
+                for (Teacher teacher : teachers) 
+                {
+                    if (rs.getInt("TeacherID")==teacher.getId()) 
+                    {
+                        for (Clss clss : classes) 
+                        {
+                            if(clss.getId()==rs.getInt("ClassID")) 
+                            {
+                                teacher.addClassesTeaching(clss);
+                            }
+                        }
+                        for (Subject subject : subjects) 
+                        {
+                            if(subject.getId()==rs.getInt("SubjectID")) 
+                            {
+                                teacher.addSubjectsTeaching(subject);
+                            }
+                        }
+                    }
+                }
+                
             }
-            return dates;
-        } catch (SQLException sqle) {
-            System.out.println("Database error (UserDAO, Unattended)");
+            return teachers;
+
+        } catch (SQLServerException ex) {
+            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         return null;
     }
-
-    public List<String> getAttendedDays(Student student) {
+        
+        public List<Clss> getAllClasses() {
         try (Connection con = ds.getConnection()) {
-            List<String> dates = new ArrayList();
-            String sql = "SELECT yyyymmdd FROM Attendance WHERE StudentID = ? AND Attendance = 1";
-            PreparedStatement ps = con.prepareStatement(sql);
-            ps.setInt(1, student.getId());
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                dates.add(rs.getString("yyyymmdd"));
-            }
-            return dates;
-        } catch (SQLException sqle) {
-            System.out.println("Database error (UserDAO, Attended)");
-        }
 
-        return null;
-    }
-
-    public List<Student> getUnattendingStudents(Date date, int classId) {
-        try (Connection con = ds.getConnection()) {
-            List<Student> students = new ArrayList();
-            String sql = "SELECT s.StudentID, s.StudentFName, s.StudentLName, s.StudentClassID, s.email, s.pass\n"
-                    + "FROM Student AS s \n"
-                    + "JOIN Class as c ON s.StudentClassID = c.ClassID\n"
-                    + "JOIN Attendance as a ON s.StudentID = a.StudentID\n"
-                    + "WHERE c.ClassID = ? AND a.yyyymmdd = ? AND a.Attendance = 0";
-            PreparedStatement ps = con.prepareStatement(sql);
-            ps.setInt(1, classId);
-            ps.setDate(2, date);
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                students.add(getStudentFromRS(rs));
-            }
-            return students;
-        } catch (SQLException sqle) {
-            System.out.println("Database error (UserDAO, Unattended Students)");
-        }
-
-        return null;
-    }
-
-    public List<Clss> getTeachingClasses(Teacher teacher) {
-        try (Connection con = ds.getConnection()) {
             List<Clss> classes = new ArrayList();
-            String sql = "SELECT c.ClassID, c.ClassName FROM Class as c\n"
-                    + "JOIN Subject as sub ON c.ClassID = sub.ClassID\n"
-                    + "WHERE sub.TeacherID = ?";
-            PreparedStatement ps = con.prepareStatement(sql);
-            ps.setInt(1, teacher.getId());
-            ResultSet rs = ps.executeQuery();
+
+            String sql = "SELECT * FROM Class";
+            Statement stmt = con.createStatement();
+            ResultSet rs = stmt.executeQuery(sql);
+
             while (rs.next()) {
+                
                 Clss clss = new Clss();
                 clss.setId(rs.getInt("ClassID"));
                 clss.setName(rs.getString("ClassName"));
+                clss.setYearEnrolled(rs.getInt("ClassYearEnrolled"));
+
                 classes.add(clss);
+
             }
+
             return classes;
         } catch (SQLException sqle) {
-            System.out.println("Database error (UserDAO, Teaching Classes)");
+            System.out.println("Error, DAO, getAllClasses");
+            sqle.printStackTrace();
+            System.out.println();
         }
 
         return null;
-    }
+        }
+
 }

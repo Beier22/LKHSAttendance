@@ -7,9 +7,13 @@ package lkhsattendance.gui.controller;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Date;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.ResourceBundle;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -67,8 +71,10 @@ public class StudentViewController implements Initializable {
 
     @FXML
     private void btnHandleRequest(ActionEvent event) {
+        
     }
-
+    
+    /*
     public void setUp(Student student) {
         this.student = student;
         System.out.println("Student: " + student.getNameF());
@@ -77,6 +83,21 @@ public class StudentViewController implements Initializable {
         Collections.reverse(yada);
         listView.getItems().addAll(yada);
     }
+    */
+    
+    public void setUp(Student student) {
+        this.student = student;
+        System.out.println("Student: " + student.getNameF());
+        txtWelcome.setText("Welcome, " + student.getNameF());
+        List<Date> absentDays = this.student.getDaysAbsence();
+        List<String> toString = new ArrayList();
+        for (Date date : absentDays) {
+            String stringDate = date+"";
+            toString.add(stringDate);
+        }
+        listView.getItems().addAll(toString);
+    }
+    
     
 }
 

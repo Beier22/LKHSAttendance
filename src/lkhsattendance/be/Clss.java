@@ -9,10 +9,20 @@ package lkhsattendance.be;
  *
  * @author mads_
  */
+
 public class Clss {
     //Dette er til klasser, da jeg ikke kunne skive 'Class'
     private int id;
     private String name;
+    private int yearEnrolled;
+
+    public int getYearEnrolled() {
+        return yearEnrolled;
+    }
+
+    public void setYearEnrolled(int yearEnrolled) {
+        this.yearEnrolled = yearEnrolled;
+    }
     
     @Override
     public String toString(){
@@ -37,3 +47,4 @@ public class Clss {
     
     
 }
+

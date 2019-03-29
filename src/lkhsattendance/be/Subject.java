@@ -14,12 +14,28 @@ import java.util.List;
  */
 public class Subject {
     
+    private int id;
     private String name;
-    private List<Integer> days; //Forslag: Måske vi kan lave en liste over hvilke ugedage i stedet for datoer?(fx 1-3-5 for mandag-onsdag-fredag)
-    private List<Student> students;
-    private Teacher teacher;
-    //Evt tilføje classroom field, hvis vi tænker det kunne være relevant
+    private String description;
     
+    private List<Integer> weekdays; //ikke udfyldt endnu
+    
+    //evt classroom?
+    
+    @Override
+    public String toString() {
+        return description;
+    }
+    
+    
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public String getName() {
         return name;
     }
@@ -28,29 +44,22 @@ public class Subject {
         this.name = name;
     }
 
-    public Teacher getTeacher() {
-        return teacher;
+    public String getDescription() {
+        return description;
     }
 
-    public void setTeacher(Teacher teacher) {
-        this.teacher = teacher;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    public List<Integer> getDays() {
-        return days;
+    public List<Integer> getWeekdays() {
+        return weekdays;
     }
 
-    public void setDays(List<Integer> days) {
-        this.days = days;
+    public void setWeekdays(List<Integer> weekdays) {
+        this.weekdays = weekdays;
     }
-
-    public List<Student> getStudents() {
-        return students;
-    }
-
-    public void setStudents(List<Student> students) {
-        this.students = students;
-    }
+    
     
 }
 

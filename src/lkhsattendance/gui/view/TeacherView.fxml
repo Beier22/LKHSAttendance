@@ -23,7 +23,7 @@
                   </StackPane>
                   <StackPane maxWidth="1.7976931348623157E308" prefHeight="25.0" prefWidth="10000.0">
                      <children>
-                        <JFXComboBox fx:id="menu" onAction="#handleMenu" prefHeight="25.0" prefWidth="200.0" />
+                        <JFXComboBox fx:id="studentOverview" onAction="#handleStudentOverview" prefHeight="25.0" prefWidth="200.0" />
                      </children>
                   </StackPane>
                   <StackPane alignment="CENTER_RIGHT" maxWidth="1.7976931348623157E308" prefHeight="25.0" prefWidth="10000.0">
@@ -46,7 +46,7 @@
                   </StackPane>
                   <StackPane alignment="CENTER_RIGHT" maxWidth="1.7976931348623157E308" prefHeight="150.0" prefWidth="10000.0">
                      <children>
-                        <JFXButton id="btnInfo" fx:id="btnMoreInfo" onAction="#btnMore" ripplerFill="WHITE" />
+                        <JFXButton id="btnInfo" fx:id="btnMoreInfo" ripplerFill="WHITE" />
                      </children>
                   </StackPane>
                </children>

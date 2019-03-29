@@ -66,8 +66,8 @@ public class LoginViewController implements Initializable {
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        students = model.getAllStudents();
-        teachers = model.getAllTeachers();
+        students = model.getAllStudentsWithAttendance();
+        teachers = model.getAllTeachersWithClassesAndSubjects();
 
         //Pressing enter while in username field will swap to password field
         txtEmail.setOnKeyPressed(new EventHandler<KeyEvent>() {
@@ -91,9 +91,8 @@ public class LoginViewController implements Initializable {
         
         Date date = Date.valueOf(LocalDate.now());
         model.unattendance(date); //HER ER METODEN SOM SØRGER FOR AT GØR STUDENTS ABSENT
-        model.attendance();
         
-        if(prefs.getBoolean("selected", true)){
+        if(prefs.getBoolean("elected", true)){
             txtEmail.setText(prefs.get("lastEmail", null));
             txtPassword.setText(prefs.get("lastPassword", null));
             rememberMe.setSelected(true);

@@ -45,8 +45,8 @@ public class AdminViewController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        lstStudents.getItems().addAll(model.getAllStudents());
-        lstTeachers.getItems().addAll(model.getAllTeachers());
+        lstStudents.getItems().addAll(model.getAllStudentsWithAttendance());
+        lstTeachers.getItems().addAll(model.getAllTeachersWithClassesAndSubjects());
     }
     
     @FXML

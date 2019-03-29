@@ -5,6 +5,7 @@
  */
 package lkhsattendance.be;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -16,7 +17,8 @@ public class Teacher {
     private int id;
     private String nameF;
     private String nameL;
-    private List<Subject> subjects;
+    private List<Subject> subjectsTeaching = new ArrayList();
+    private List<Clss> classesTeaching = new ArrayList();
     private String email;
     private String password;
     
@@ -37,6 +39,19 @@ public class Teacher {
         return nameF;
     }
 
+    public List<Clss> getClassesTeaching() {
+        return classesTeaching;
+    }
+
+    public void setClassesTeaching(List<Clss> classesTeaching) {
+        this.classesTeaching = classesTeaching;
+    }
+    
+    public void addClassesTeaching(Clss clss) {
+        this.classesTeaching.add(clss);
+    }
+    
+
     public void setNameF(String nameF) {
         this.nameF = nameF;
     }
@@ -51,14 +66,18 @@ public class Teacher {
 
     
 
-    public List<Subject> getSubjects() {
-        return subjects;
+    public List<Subject> getSubjectsTeaching() {
+        return subjectsTeaching;
     }
 
-    public void setSubjects(List<Subject> subjects) {
-        this.subjects = subjects;
+    public void setSubjectsTeaching(List<Subject> subjects) {
+        this.subjectsTeaching = subjects;
     }
 
+    public void addSubjectsTeaching(Subject subject) {
+        this.subjectsTeaching.add(subject);
+    }
+    
     public String getEmail() {
         return email;
     }

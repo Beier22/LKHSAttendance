@@ -39,9 +39,9 @@ import lkhsattendance.bll.Model;
  * @author LKHS
  */
 public class TeacherViewController implements Initializable {
-
+    
     @FXML
-    private JFXComboBox<String> menu;
+    private JFXComboBox<String> studentOverview;
     @FXML
     private JFXComboBox<Clss> pickClass;
     @FXML
@@ -56,40 +56,68 @@ public class TeacherViewController implements Initializable {
     private Teacher teacher;
     private Clss selectedClass;
     private Date selectedDate;
-    private ObservableList<String> menuItems = FXCollections.observableArrayList();
-    
+    private int selectedStudentOverview;
+    private ObservableList<String> studentOverviewItems = FXCollections.observableArrayList();
+    private ObservableList<Clss> classOverviewItems = FXCollections.observableArrayList();
     private IModel model = new Model();
     
-    
+    //private List<Teacher> teachers = new ArrayList();
+    private List<Student> students = new ArrayList();
+    //private List<Clss> classes = new ArrayList();
+
     
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        selectedDate = Date.valueOf(LocalDate.now());
+        //teachers = model.getAllTeachersWithClassesAndSubjects();
+        students = model.getAllStudentsWithAttendance();
+        
         datePicker.setValue(LocalDate.now());
-        menuItems.addAll("Absent Students", "All Students", "Attending Students");
-        menu.setItems(menuItems);
-        menu.getSelectionModel().select(0);
+        selectedDate = Date.valueOf(datePicker.getValue());
+        
+        studentOverviewItems.addAll("All students", "Absent students", "Attending Students");
+        studentOverview.setItems(studentOverviewItems);
+        studentOverview.getSelectionModel().select(0);
+
+
+        
         btnBack.setText("Log out");
         
         
-    }    
+        
+    }
+    public void setUp(Teacher teacher){
+        this.teacher = teacher;
+        System.out.println("Teacher: " + teacher.getId() + ", name: " + teacher.getNameF() + ", classes teaching: " + teacher.getClassesTeaching() + ", subjects teaching:  " + teacher.getSubjectsTeaching());
 
+        for (Clss clss : teacher.getClassesTeaching()) {
+            classOverviewItems.add(clss);
+        }
+        pickClass.setItems(classOverviewItems);
+        pickClass.getSelectionModel().select(0);
+        
+        
+        
+        selectedClass = pickClass.getSelectionModel().getSelectedItem();
+        
+        setListView(selectedDate, selectedClass, selectedStudentOverview);
+
+    }
     @FXML
-    private void handleMenu(ActionEvent event) {
+    private void handleStudentOverview(ActionEvent event) {
+        selectedStudentOverview = studentOverview.getSelectionModel().getSelectedIndex();
+        setListView(selectedDate, selectedClass, selectedStudentOverview);
     }
 
     @FXML
     private void pickDate(ActionEvent event) {
         selectedDate = Date.valueOf(datePicker.getValue());
-        setListView(selectedDate, selectedClass);
+        setListView(selectedDate, selectedClass, selectedStudentOverview);
     }
 
-    @FXML
-    private void handleMoreInfo(MouseEvent event) {
-    }
+
 
     @FXML
     private void handleBtnBack(ActionEvent event) throws IOException {
@@ -101,30 +129,50 @@ public class TeacherViewController implements Initializable {
     }
 
     @FXML
-    private void btnMore(ActionEvent event) {
+    private void clickPickClass(ActionEvent event) {
+        selectedClass = pickClass.getSelectionModel().getSelectedItem();
+        setListView(selectedDate, selectedClass, selectedStudentOverview);
     }
     
-    public void setUp(Teacher teacher){
-        this.teacher = teacher;
-        System.out.println("Teacher: " + teacher.getNameF());
-        ObservableList<Clss> classes = FXCollections.observableArrayList(model.getTeachingClasses(teacher));
-        pickClass.setItems(classes);
-        pickClass.getSelectionModel().select(0);
-        selectedClass = pickClass.getSelectionModel().getSelectedItem();
-        lstStudents.getItems().addAll(model.getUnattendingStudents(selectedDate, selectedClass.getId()));
+    private void setListView(Date selectedDate, Clss selectedClass, int selectedStudentOverview){
+        lstStudents.getItems().clear();
+        if (selectedStudentOverview==0) {
+            lstStudents.getItems().clear();
+            ObservableList<Student> allStudents = FXCollections.observableArrayList();
+            for (Student student : students) {
+                if(student.getClassId()==(selectedClass.getId())) {
+                    allStudents.add(student);
+                }
+            }
+            lstStudents.getItems().addAll(allStudents);
+        }
+        if (selectedStudentOverview==1) {
+            lstStudents.getItems().clear();
+            ObservableList<Student> absentStudents = FXCollections.observableArrayList();
+            for (Student student : students) {
+                if(student.getDaysAbsence().contains(selectedDate) && student.getClassId()==selectedClass.getId())  {
+                    absentStudents.add(student);
+                }
+            }
+            lstStudents.getItems().addAll(absentStudents);
+        }
+        if (selectedStudentOverview==2) {
+            lstStudents.getItems().clear();
+            ObservableList<Student> attendantStudents = FXCollections.observableArrayList();
+            for (Student student : students) {
+                if(student.getDaysAttendance().contains(selectedDate) && student.getClassId()==selectedClass.getId())  {
+                    attendantStudents.add(student);
+                }
+            }
+            lstStudents.getItems().addAll(attendantStudents);
+        }
+        
     }
 
     @FXML
-    private void clickPickClass(ActionEvent event) {
-        selectedClass = pickClass.getSelectionModel().getSelectedItem();
-        setListView(selectedDate, selectedClass);
+    private void handleMoreInfo(MouseEvent event) {
     }
-    
-    private void setListView(Date date, Clss clss){
-        
-        lstStudents.getItems().clear();
-        lstStudents.getItems().addAll(model.getUnattendingStudents(date, clss.getId()));
-    }
+
     
     
     

@@ -26,6 +26,8 @@ public class Student {
     private String password;
     private int classId;
 
+
+    
     public int getId() {
         return id;
     }
