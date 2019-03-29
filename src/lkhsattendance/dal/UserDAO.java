@@ -6,6 +6,7 @@
 package lkhsattendance.dal;
 
 import com.microsoft.sqlserver.jdbc.SQLServerDataSource;
+import com.microsoft.sqlserver.jdbc.SQLServerException;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -14,6 +15,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import lkhsattendance.be.Clss;
@@ -26,37 +28,35 @@ import lkhsattendance.be.Teacher;
  * @author LKHS
  */
 public class UserDAO {
-    
+
     DBAccess dba = new DBAccess();
     SQLServerDataSource ds = dba.DBAccess();
-    
+
     public void unattendance(Date date) {
-    String sql = "INSERT INTO [Attendance2].dbo.Attendance (StudentID, yyyymmdd, Attendance) SELECT [Student].StudentID, ?, 0 FROM [Student] ";
-    try (Connection con = ds.getConnection()) {
-        PreparedStatement ps = con.prepareStatement(sql);
-        ps.setDate(1, date);
-        ps.addBatch();
-        ps.executeBatch();
-    } catch (SQLException ex) 
-        {
+        String sql = "INSERT INTO [Attendance2].dbo.Attendance (StudentID, yyyymmdd, Attendance) SELECT [Student].StudentID, ?, 0 FROM [Student] ";
+        try (Connection con = ds.getConnection()) {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setDate(1, date);
+            ps.addBatch();
+            ps.executeBatch();
+        } catch (SQLException ex) {
             System.out.println("unattendance taken");
         }
     }
-    
+
     public void login(int StudentID, Date date) {
-    String sql = "UPDATE [Attendance2].[dbo].[Attendance] SET attendance=1 WHERE StudentID=? AND yyyymmdd=?";
-    try (Connection con = ds.getConnection()) {
-        PreparedStatement ps = con.prepareStatement(sql);
-        ps.setInt(1, StudentID);
-        ps.setDate(2, date);
-        ps.addBatch();
-        ps.executeBatch();
-    } catch (SQLException ex) 
-        {
+        String sql = "UPDATE [Attendance2].[dbo].[Attendance] SET attendance=1 WHERE StudentID=? AND yyyymmdd=?";
+        try (Connection con = ds.getConnection()) {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, StudentID);
+            ps.setDate(2, date);
+            ps.addBatch();
+            ps.executeBatch();
+        } catch (SQLException ex) {
             Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     public Student getStudentFromRS(ResultSet rs) {
         try {
             Student student = new Student();
@@ -73,40 +73,109 @@ public class UserDAO {
         return null;
     }
 
-    public List<Student> getAllStudents(){
-        try (Connection con = ds.getConnection()){
+    public List<Student> getAllStudents() {
+        try (Connection con = ds.getConnection()) {
+
             List<Student> students = new ArrayList();
+
             String sql = "SELECT * FROM Student";
             Statement stmt = con.createStatement();
             ResultSet rs = stmt.executeQuery(sql);
-            while(rs.next()){
-                students.add(getStudentFromRS(rs));
+
+            while (rs.next()) {
+
+                Student student = new Student();
+                student.setId(rs.getInt("StudentID"));
+                student.setNameF(rs.getString("StudentFName"));
+                student.setNameL(rs.getString("StudentLName"));
+                student.setClassId(rs.getInt("StudentClassID"));
+                student.setEmail(rs.getString("email"));
+                student.setPassword(rs.getString("pass"));
+
+                students.add(student);
+
             }
+
             return students;
         } catch (SQLException sqle) {
-            System.out.println("Database error (UserDAO, Students)");
+            System.out.println("Error, DAO, getAllStudents");
+            sqle.printStackTrace();
+            System.out.println();
         }
-        
+
         return null;
     }
-    
-    public List<Subject> getAllSubjects(){
-        try (Connection con = ds.getConnection()){
+
+    public void addAttendanceData() {
+        try (Connection con = ds.getConnection()) {
+            List<Student> students = getAllStudents();
+
+            String sql = "SELECT s.StudentID, s.StudentLName, s.StudentFName, s.StudentClassID, s.email, s.pass, yyyymmdd, attendance FROM [Attendance2].[dbo].Student as s LEFT JOIN [Attendance2].[dbo].Attendance as a ON s.StudentID=a.StudentID ORDER BY s.StudentID, attendance";
+
+           
+            Statement stmt = con.createStatement();
+            ResultSet rs = stmt.executeQuery(sql);
+
+            while (rs.next()) {
+
+                if (rs.getInt("attendance") == 0) {
+                    for (Student student : students) {
+                        if (student.getId() == rs.getInt("StudentID")) {
+                            Date date = rs.getDate("yyyymmdd");
+
+                            student.addDaysAbsence(date);
+
+                        }
+                    }
+
+                } else if (rs.getInt("attendance") == 1) {
+                    for (Student student : students) {
+                        if (student.getId() == rs.getInt("StudentID")) {
+                            Date date = rs.getDate("yyyymmdd");
+                            //String dateString = null;
+                            //dateString = date + "";
+                            //attendance.add(dateString);
+                            //student.setDaysAttendance(attendance);
+                            student.addDaysAttendance(date);
+                            
+                        }
+                    }
+                }
+
+            }
+
+            
+            
+            for (Student s : students) {
+                System.out.println(s.getId() + "  " + s.getNameL() + "  " + s.getDaysAttendance() + "  " + s.getDaysAbsence());
+            }
+
+        } catch (SQLServerException ex) {
+            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        //hashmap that takes studentID has key and has values
+    }
+
+    public List<Subject> getAllSubjects() {
+        try (Connection con = ds.getConnection()) {
             //TODO
         } catch (SQLException sqle) {
             System.out.println("Database error (UserDAO, Subjects)");
         }
-        
+
         return null;
     }
-    
-    public List<Teacher> getAllTeachers(){
-        try (Connection con = ds.getConnection()){
+
+    public List<Teacher> getAllTeachers() {
+        try (Connection con = ds.getConnection()) {
             List<Teacher> teachers = new ArrayList();
             String sql = "SELECT * FROM Teacher";
             Statement stmt = con.createStatement();
             ResultSet rs = stmt.executeQuery(sql);
-            while(rs.next()){
+            while (rs.next()) {
                 Teacher teacher = new Teacher();
                 teacher.setId(rs.getInt("TeacherID"));
                 teacher.setNameF(rs.getString("TeacherFName"));
@@ -119,48 +188,48 @@ public class UserDAO {
         } catch (SQLException sqle) {
             System.out.println("Database error (UserDAO, Teachers)");
         }
-        
+
         return null;
     }
-    
-    public List<String> getUnattendedDays(Student student){
-        try (Connection con = ds.getConnection()){
+
+    public List<String> getUnattendedDays(Student student) {
+        try (Connection con = ds.getConnection()) {
             List<String> dates = new ArrayList();
             String sql = "SELECT yyyymmdd FROM Attendance WHERE StudentID = ? AND Attendance = 0";
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, student.getId());
             ResultSet rs = ps.executeQuery();
-            while(rs.next()){
+            while (rs.next()) {
                 dates.add(rs.getString("yyyymmdd"));
             }
             return dates;
         } catch (SQLException sqle) {
             System.out.println("Database error (UserDAO, Unattended)");
         }
-        
+
         return null;
     }
-    
-    public List<String> getAttendedDays(Student student){
-        try (Connection con = ds.getConnection()){
+
+    public List<String> getAttendedDays(Student student) {
+        try (Connection con = ds.getConnection()) {
             List<String> dates = new ArrayList();
             String sql = "SELECT yyyymmdd FROM Attendance WHERE StudentID = ? AND Attendance = 1";
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, student.getId());
             ResultSet rs = ps.executeQuery();
-            while(rs.next()){
+            while (rs.next()) {
                 dates.add(rs.getString("yyyymmdd"));
             }
             return dates;
         } catch (SQLException sqle) {
             System.out.println("Database error (UserDAO, Attended)");
         }
-        
+
         return null;
     }
-    
-    public List<Student> getUnattendingStudents(Date date, int classId){
-        try (Connection con = ds.getConnection()){
+
+    public List<Student> getUnattendingStudents(Date date, int classId) {
+        try (Connection con = ds.getConnection()) {
             List<Student> students = new ArrayList();
             String sql = "SELECT s.StudentID, s.StudentFName, s.StudentLName, s.StudentClassID, s.email, s.pass\n"
                     + "FROM Student AS s \n"
@@ -171,17 +240,17 @@ public class UserDAO {
             ps.setInt(1, classId);
             ps.setDate(2, date);
             ResultSet rs = ps.executeQuery();
-            while(rs.next()){
+            while (rs.next()) {
                 students.add(getStudentFromRS(rs));
             }
             return students;
         } catch (SQLException sqle) {
             System.out.println("Database error (UserDAO, Unattended Students)");
         }
-        
+
         return null;
     }
-    
+
     public List<Clss> getTeachingClasses(Teacher teacher) {
         try (Connection con = ds.getConnection()) {
             List<Clss> classes = new ArrayList();
@@ -191,7 +260,7 @@ public class UserDAO {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, teacher.getId());
             ResultSet rs = ps.executeQuery();
-            while(rs.next()){
+            while (rs.next()) {
                 Clss clss = new Clss();
                 clss.setId(rs.getInt("ClassID"));
                 clss.setName(rs.getString("ClassName"));
@@ -205,4 +274,3 @@ public class UserDAO {
         return null;
     }
 }
-

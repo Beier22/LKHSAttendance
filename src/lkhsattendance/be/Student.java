@@ -5,7 +5,9 @@
  */
 package lkhsattendance.be;
 
-import java.util.Date;
+
+import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -17,8 +19,8 @@ public class Student {
     private int id;
     private String nameL;
     private String nameF;
-    private List<Date> daysAttendance;
-    private List<Date> daysAbsence;
+    private List<Date> daysAttendance = new ArrayList();
+    private List<Date> daysAbsence = new ArrayList();
     private List<Subject> subjects;
     private String email;
     private String password;
@@ -37,7 +39,7 @@ public class Student {
         return nameL + ", " + nameF;
     }
     
-    public String getNameL() {
+    public String getNameL() { 
         return nameL;
     }
 
@@ -57,15 +59,28 @@ public class Student {
         return daysAttendance;
     }
 
-    public void setDaysAttendance(List<Date> daysAttendance) {
-        this.daysAttendance = daysAttendance;
+    public void addDaysAttendance(Date date) {
+        this.daysAttendance.add(date);
     }
+    
+    public void setDaysAttendance(List<Date> days) {
+        this.daysAttendance = days;
+    }
+    public void addDaysAttendanceList(List<Date> date) {
+        this.daysAttendance.add(date.get(0));
+    }
+    
     public List<Date> getDaysAbsence() {
         return daysAbsence;
     }
-
-    public void setDaysAbsence(List<Date> daysAbsence) {
-        this.daysAbsence = daysAbsence;
+    public void addDaysAbsence(Date date) {
+        this.daysAbsence.add(date);
+    }
+    public void setDaysAbsence(List<Date> days) {
+        this.daysAbsence = days;
+    }
+    public void addDaysAbsenceList(List<Date> date) {
+        this.daysAbsence.add(date.get(0));
     }
     public List<Subject> getSubjects() {
         return subjects;

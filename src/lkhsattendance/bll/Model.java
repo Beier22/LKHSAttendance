@@ -76,5 +76,10 @@ public class Model implements IModel{
         dao.login(StudentID, date);
     }
     
+    @Override
+    public void attendance() {
+        dao.addAttendanceData();
+    }
+    
 }
 

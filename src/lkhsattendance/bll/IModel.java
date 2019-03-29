@@ -29,6 +29,7 @@ public interface IModel {
     public List<Clss> getTeachingClasses(Teacher teacher);
     public void unattendance(Date date);
     public void login(int StudentID, Date date);
+    public void attendance();
 }
 
 
