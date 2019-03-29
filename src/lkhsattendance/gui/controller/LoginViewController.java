@@ -14,6 +14,7 @@ import java.net.URL;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.prefs.Preferences;
@@ -90,6 +91,7 @@ public class LoginViewController implements Initializable {
         
         Date date = Date.valueOf(LocalDate.now());
         model.unattendance(date); //HER ER METODEN SOM SØRGER FOR AT GØR STUDENTS ABSENT
+        model.attendance();
         
         if(prefs.getBoolean("selected", true)){
             txtEmail.setText(prefs.get("lastEmail", null));

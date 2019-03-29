@@ -83,7 +83,7 @@ public class UserDAO {
             ResultSet rs = stmt.executeQuery(sql);
 
             while (rs.next()) {
-
+                
                 Student student = new Student();
                 student.setId(rs.getInt("StudentID"));
                 student.setNameF(rs.getString("StudentFName"));
@@ -132,10 +132,7 @@ public class UserDAO {
                     for (Student student : students) {
                         if (student.getId() == rs.getInt("StudentID")) {
                             Date date = rs.getDate("yyyymmdd");
-                            //String dateString = null;
-                            //dateString = date + "";
-                            //attendance.add(dateString);
-                            //student.setDaysAttendance(attendance);
+
                             student.addDaysAttendance(date);
                             
                         }
@@ -144,11 +141,6 @@ public class UserDAO {
 
             }
 
-            
-            
-            for (Student s : students) {
-                System.out.println(s.getId() + "  " + s.getNameL() + "  " + s.getDaysAttendance() + "  " + s.getDaysAbsence());
-            }
 
         } catch (SQLServerException ex) {
             Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -156,7 +148,7 @@ public class UserDAO {
             Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        //hashmap that takes studentID has key and has values
+
     }
 
     public List<Subject> getAllSubjects() {
