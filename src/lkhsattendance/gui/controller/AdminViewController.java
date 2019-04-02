@@ -7,19 +7,25 @@ package lkhsattendance.gui.controller;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.Collections;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
+import javafx.event.EventType;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import lkhsattendance.be.Clss;
 import lkhsattendance.be.Student;
+import lkhsattendance.be.Subject;
 import lkhsattendance.be.Teacher;
 import lkhsattendance.gui.model.IModel;
 import lkhsattendance.gui.model.Model;
@@ -39,6 +45,21 @@ public class AdminViewController implements Initializable {
     private IModel model = new Model();
     @FXML
     private Button btnLogout;
+    @FXML
+    private Button btnStudentTeacherToggle;
+    
+    private boolean isCreateStudent = true;
+    @FXML
+    private VBox vbox;
+    
+    
+    @FXML
+    private Label lblCreate;
+    @FXML
+    private ComboBox<Clss> cbxClasses;
+    
+    private int n = 0;
+    private List<Subject> subjectsWithoutTeacher = new ArrayList();
 
     /**
      * Initializes the controller class.
@@ -47,6 +68,14 @@ public class AdminViewController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         lstStudents.getItems().addAll(model.getAllStudentsWithAttendance());
         lstTeachers.getItems().addAll(model.getAllTeachersWithClassesAndSubjects());
+        cbxClasses.getItems().addAll(model.getAllClasses());
+        for (Subject subject : model.getAllSubjects()) {
+            if(subject.getTeacherId() == -1){
+                subjectsWithoutTeacher.add(subject);
+            }
+        }
+        
+        
     }
     
     @FXML
@@ -56,6 +85,47 @@ public class AdminViewController implements Initializable {
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
+    }
+
+    @FXML
+    private void clickToggle(ActionEvent event) {
+        if(isCreateStudent){
+            isCreateStudent = false;
+            btnStudentTeacherToggle.setText("Teacher");
+            lblCreate.setText("Create Teacher");
+            setUpTeacher();
+        } else {
+            isCreateStudent = true;
+            btnStudentTeacherToggle.setText("Student");
+            lblCreate.setText("Create Student");
+            setUpStudent();
+        }
+    }
+    
+    private void setUpTeacher(){
+        vbox.getChildren().remove(cbxClasses);
+        Button btn = new Button();
+        btn.setText("Add Subject");
+        btn.setOnAction((event) -> {
+            addSubject();
+        });
+        vbox.getChildren().add(btn);
+        
+        ComboBox<Subject> temp = new ComboBox();
+        temp.getItems().addAll(subjectsWithoutTeacher);
+        temp.setPromptText("Subjects");
+        vbox.getChildren().add(temp);
+        
+        
+    }
+    
+    private void setUpStudent(){
+        vbox.getChildren().remove(5, vbox.getChildren().size());
+        vbox.getChildren().add(cbxClasses);
+    }
+    
+    private void addSubject(){
+        System.out.println("Write method");
     }
     
 }

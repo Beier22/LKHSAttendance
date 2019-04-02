@@ -5,16 +5,18 @@
 <?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" styleClass="mainFxmlClass" stylesheets="@../css/AdminView.css" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/10.0.1" fx:controller="lkhsattendance.gui.controller.AdminViewController">
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" styleClass="mainFxmlClass" stylesheets="@../css/AdminView.css" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lkhsattendance.gui.controller.AdminViewController">
    <children>
       <VBox alignment="TOP_CENTER" layoutX="332.0" layoutY="161.0" prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="30.0">
          <children>
@@ -115,7 +117,56 @@
                   </Tab>
                   <Tab text="Add User">
                     <content>
-                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <HBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                 <children>
+                                    <VBox fx:id="vbox" prefHeight="200.0" prefWidth="10000.0">
+                                       <children>
+                                          <Label fx:id="lblCreate" text="Create Student" />
+                                          <TextField promptText="First Name">
+                                             <VBox.margin>
+                                                <Insets top="5.0" />
+                                             </VBox.margin>
+                                          </TextField>
+                                          <TextField promptText="Last Name">
+                                             <VBox.margin>
+                                                <Insets top="10.0" />
+                                             </VBox.margin>
+                                          </TextField>
+                                          <HBox alignment="CENTER_LEFT">
+                                             <VBox.margin>
+                                                <Insets top="10.0" />
+                                             </VBox.margin>
+                                             <children>
+                                                <TextField promptText="Email" />
+                                                <Label text="\@easv365.dk" textFill="#a4a4a4">
+                                                   <font>
+                                                      <Font name="System Italic" size="12.0" />
+                                                   </font>
+                                                </Label>
+                                             </children>
+                                          </HBox>
+                                          <TextField promptText="Password">
+                                             <VBox.margin>
+                                                <Insets top="10.0" />
+                                             </VBox.margin>
+                                          </TextField>
+                                          <ComboBox fx:id="cbxClasses" prefWidth="150.0" promptText="Class">
+                                             <VBox.margin>
+                                                <Insets top="10.0" />
+                                             </VBox.margin>
+                                          </ComboBox>
+                                       </children>
+                                    </VBox>
+                                    <StackPane prefHeight="150.0" prefWidth="10000.0">
+                                       <children>
+                                          <Button fx:id="btnStudentTeacherToggle" mnemonicParsing="false" onAction="#clickToggle" text="Student" />
+                                       </children>
+                                    </StackPane>
+                                 </children>
+                              </HBox>
+                           </children></AnchorPane>
                     </content>
                   </Tab>
                </tabs>

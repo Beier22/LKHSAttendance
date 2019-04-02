@@ -17,7 +17,7 @@ public class Subject {
     private int id;
     private String name;
     private String description;
-    private int teacherId;
+    private int teacherId = -1;
     private List<Integer> weekdays; //ikke udfyldt endnu
     
 
