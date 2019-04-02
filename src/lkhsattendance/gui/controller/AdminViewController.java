@@ -21,8 +21,8 @@ import javafx.scene.control.ListView;
 import javafx.stage.Stage;
 import lkhsattendance.be.Student;
 import lkhsattendance.be.Teacher;
-import lkhsattendance.bll.IModel;
-import lkhsattendance.bll.Model;
+import lkhsattendance.gui.model.IModel;
+import lkhsattendance.gui.model.Model;
 
 /**
  * FXML Controller class

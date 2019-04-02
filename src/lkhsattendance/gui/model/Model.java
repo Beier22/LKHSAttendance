@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package lkhsattendance.bll;
+package lkhsattendance.gui.model;
 
 import java.sql.Date;
 import java.util.List;
@@ -11,7 +11,7 @@ import lkhsattendance.be.Clss;
 import lkhsattendance.be.Student;
 import lkhsattendance.be.Subject;
 import lkhsattendance.be.Teacher;
-import lkhsattendance.dal.UserDAO;
+import lkhsattendance.bll.manager.Manager;
 
 /**
  *
@@ -19,26 +19,26 @@ import lkhsattendance.dal.UserDAO;
  */
 public class Model implements IModel{
 
-    UserDAO dao = new UserDAO();
+    Manager manager = new Manager();
 
     @Override
     public void unattendance(Date date) {
-        dao.unattendance(date);
+        manager.unattendance(date);
     }
 
     @Override
     public void login(int StudentID, Date date) {
-        dao.login(StudentID, date);
+        manager.login(StudentID, date);
     }
     
     @Override
     public List<Student> getAllStudentsWithAttendance() {
-        return dao.getAllStudentsWithAttendance();
+        return manager.getAllStudentsWithAttendance();
     }
     
     @Override
     public List<Teacher> getAllTeachersWithClassesAndSubjects() {
-        return dao.getAllTeachersWithClassesAndSubjects();
+        return manager.getAllTeachersWithClassesAndSubjects();
     }
     
 }
