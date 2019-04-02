@@ -48,7 +48,7 @@ public class TeacherDAO implements DAOFacade {
                 subject.setId(rs.getInt("SubjectID"));
                 subject.setName(rs.getString("SubjectName"));
                 subject.setDescription(rs.getString("SubjectDescription"));
-
+                subject.setTeacherId(rs.getInt("TeacherID"));
                 subjects.add(subject);
 
             }
@@ -258,4 +258,4 @@ public class TeacherDAO implements DAOFacade {
             ex.printStackTrace();
         }
     }
-}
+} 

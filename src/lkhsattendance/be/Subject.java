@@ -17,11 +17,18 @@ public class Subject {
     private int id;
     private String name;
     private String description;
-    
+    private int teacherId;
     private List<Integer> weekdays; //ikke udfyldt endnu
     
-    //evt classroom?
-    
+
+
+    public int getTeacherId() {
+        return teacherId;
+    }
+
+    public void setTeacherId(int teacherId) {
+        this.teacherId = teacherId;
+    }    
     @Override
     public String toString() {
         return description;
