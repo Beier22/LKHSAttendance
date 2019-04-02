@@ -229,7 +229,7 @@ public class TeacherDAO implements DAOFacade {
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
-        
+        //method below has to be called multiple times depending on how many subjects the teacher has
         addTeacherSubjects(sendId, subjectID);
         }
     }
@@ -242,6 +242,19 @@ public class TeacherDAO implements DAOFacade {
             ps.addBatch();
             ps.executeBatch();
         } catch(SQLException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    @Override
+    public void remove(int id) {
+        String sql = "DELETE FROM [Attendance2].[dbo].[Teacher] WHERE TeacherID = ?";
+        try (Connection con = ds.getConnection()) {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, id);
+            ps.addBatch();
+            ps.executeBatch();
+        } catch (SQLException ex) {
             ex.printStackTrace();
         }
     }

@@ -31,4 +31,6 @@ public interface DAOFacade {
     
     public List<Subject> getAllSubjects();
     
+    public void remove(int id);
+    
 }

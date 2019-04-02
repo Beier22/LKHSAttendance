@@ -50,6 +50,16 @@ public class Model implements IModel{
     public List<Subject> getAllSubjects() {
         return manager.getAllSubjects();
     }
+
+    @Override
+    public void removeTeacher(int teacherID) {
+        manager.removeTeacher(teacherID);
+    }
+
+    @Override
+    public void removeStudent(int studentID) {
+        manager.removeStudent(studentID);
+    }
     
 }
 

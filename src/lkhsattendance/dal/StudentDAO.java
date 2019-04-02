@@ -171,6 +171,19 @@ public class StudentDAO implements DAOFacade {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    @Override
+    public void remove(int id) {
+        String sql = "DELETE FROM [Attendance2].[dbo].[Student] WHERE StudentID = ?";
+        try (Connection con = ds.getConnection()) {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, id);
+            ps.addBatch();
+            ps.executeBatch();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }
+
 
 
 }

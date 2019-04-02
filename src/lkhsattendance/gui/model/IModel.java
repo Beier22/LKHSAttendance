@@ -24,5 +24,7 @@ public interface IModel {
     public List<Teacher> getAllTeachersWithClassesAndSubjects();
     public List<Clss> getAllClasses();
     public List<Subject> getAllSubjects();
+    public void removeTeacher(int teacherID);
+    public void removeStudent(int studentID);
     
 }

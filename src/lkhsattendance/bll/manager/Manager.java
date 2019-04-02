@@ -48,6 +48,14 @@ public class Manager {
     public List<Subject> getAllSubjects() {
         return tDao.getAllSubjects();
     }
+
+    public void removeTeacher(int teacherID) {
+        tDao.remove(teacherID);
+    }
+
+    public void removeStudent(int studentID) {
+        tDao.remove(studentID);
+    }
     
     
 }
