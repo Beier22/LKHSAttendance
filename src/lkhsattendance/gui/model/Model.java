@@ -46,5 +46,10 @@ public class Model implements IModel{
         return manager.getAllClasses();
     }
     
+    @Override
+    public List<Subject> getAllSubjects() {
+        return manager.getAllSubjects();
+    }
+    
 }
 

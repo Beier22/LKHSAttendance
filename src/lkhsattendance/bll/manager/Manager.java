@@ -10,6 +10,7 @@ import java.sql.Date;
 import java.util.List;
 import lkhsattendance.be.Clss;
 import lkhsattendance.be.Student;
+import lkhsattendance.be.Subject;
 import lkhsattendance.be.Teacher;
 import lkhsattendance.dal.DAOFacade;
 import lkhsattendance.dal.StudentDAO;
@@ -42,6 +43,10 @@ public class Manager {
     
     public List<Clss> getAllClasses() {
         return tDao.getAllClasses();
+    }
+
+    public List<Subject> getAllSubjects() {
+        return tDao.getAllSubjects();
     }
     
     

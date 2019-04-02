@@ -23,5 +23,6 @@ public interface IModel {
     public List<Student> getAllStudentsWithAttendance();
     public List<Teacher> getAllTeachersWithClassesAndSubjects();
     public List<Clss> getAllClasses();
+    public List<Subject> getAllSubjects();
     
 }
