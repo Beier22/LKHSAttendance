@@ -70,7 +70,7 @@ public class AdminViewController implements Initializable {
         lstTeachers.getItems().addAll(model.getAllTeachersWithClassesAndSubjects());
         cbxClasses.getItems().addAll(model.getAllClasses());
         for (Subject subject : model.getAllSubjects()) {
-            if(subject.getTeacherId() == -1){
+            if(subject.getTeacherId() == 0){
                 subjectsWithoutTeacher.add(subject);
             }
         }
@@ -104,17 +104,14 @@ public class AdminViewController implements Initializable {
     
     private void setUpTeacher(){
         vbox.getChildren().remove(cbxClasses);
+        
         Button btn = new Button();
         btn.setText("Add Subject");
         btn.setOnAction((event) -> {
             addSubject();
         });
         vbox.getChildren().add(btn);
-        
-        ComboBox<Subject> temp = new ComboBox();
-        temp.getItems().addAll(subjectsWithoutTeacher);
-        temp.setPromptText("Subjects");
-        vbox.getChildren().add(temp);
+        addSubject();
         
         
     }
@@ -125,7 +122,10 @@ public class AdminViewController implements Initializable {
     }
     
     private void addSubject(){
-        System.out.println("Write method");
+        ComboBox<Subject> temp = new ComboBox();
+        temp.setPromptText("Subject");
+        temp.getItems().addAll(subjectsWithoutTeacher);
+        vbox.getChildren().add(temp);
     }
     
 }
