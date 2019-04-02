@@ -17,12 +17,11 @@ import lkhsattendance.be.Teacher;
  * @author LKHS
  */
 public interface IModel {
-
-
+    
     public void unattendance(Date date);
     public void login(int StudentID, Date date);
     public List<Student> getAllStudentsWithAttendance();
     public List<Teacher> getAllTeachersWithClassesAndSubjects();
+    public List<Clss> getAllClasses();
+    
 }
-
-

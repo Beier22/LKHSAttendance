@@ -8,6 +8,7 @@ package lkhsattendance.bll.manager;
 
 import java.sql.Date;
 import java.util.List;
+import lkhsattendance.be.Clss;
 import lkhsattendance.be.Student;
 import lkhsattendance.be.Teacher;
 import lkhsattendance.dal.DAOFacade;
@@ -38,5 +39,10 @@ public class Manager {
     public List<Teacher> getAllTeachersWithClassesAndSubjects() {
         return tDao.getAllTeachersWithClassesAndSubjects();
     }
+    
+    public List<Clss> getAllClasses() {
+        return tDao.getAllClasses();
+    }
+    
     
 }

@@ -141,7 +141,30 @@ public class StudentDAO implements DAOFacade {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
-    
+    public void addNewStudent(String lName, String fName, int classID, String email, String pass) {
+        
+        String sql = "INSERT INTO [Attendance2].[dbo].Student "
+                + "(StudentLName, StudentFName, StudentClassID, email, pass) "
+                + "VALUES (?, ?, ?, ?, ?)";
+        try (Connection con = ds.getConnection()) {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, lName);
+            ps.setString(2, fName);
+            ps.setInt(3, classID);
+            ps.setString(4, email);
+            ps.setString(5, pass);
+            ps.addBatch();
+            ps.executeBatch();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        
+    }
+
+    @Override
+    public List<Clss> getAllClasses() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 
 
 

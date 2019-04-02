@@ -41,5 +41,10 @@ public class Model implements IModel{
         return manager.getAllTeachersWithClassesAndSubjects();
     }
     
+    @Override
+    public List<Clss> getAllClasses() {
+        return manager.getAllClasses();
+    }
+    
 }
 

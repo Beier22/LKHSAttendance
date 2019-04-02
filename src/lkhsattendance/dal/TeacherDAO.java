@@ -10,6 +10,7 @@ import com.microsoft.sqlserver.jdbc.SQLServerDataSource;
 import com.microsoft.sqlserver.jdbc.SQLServerException;
 import java.sql.Connection;
 import java.sql.Date;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -178,5 +179,70 @@ public class TeacherDAO implements DAOFacade {
     @Override
     public List<Student> getAllStudentsWithAttendance() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    public boolean teacherSubjectAvailability(int subjectID) {
+        try (Connection con = ds.getConnection()) {
+            
+            boolean myBoolean = false;
+            String sqlChecker = "SELECT (teacherID) from Attendance2.dbo.[Subject]" +
+                                "WHERE SubjectID = "+subjectID;
+            Statement stmt = con.createStatement();
+            ResultSet rs = stmt.executeQuery(sqlChecker);
+            while(rs.next()) {
+                if (rs.getInt("teacherID")>0) {
+                    myBoolean = true;
+                }
+            }
+            return myBoolean;
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return false;
+    }
+    
+    public void addNewTeacher(String lName, String fName, String email, String pass, int subjectID) {
+        int sendId = -1;
+        if(teacherSubjectAvailability(subjectID)==true) {
+        try (Connection con = ds.getConnection()) {
+
+        //Actual method starts here
+        String sql = "INSERT INTO [Attendance2].[dbo].Teacher "
+                + "(StudentLName, StudentFName, StudentClassID, email, pass) "
+                + "VALUES (?, ?, ?, ?, ?)";
+
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, lName);
+            ps.setString(2, fName);
+            ps.setString(4, email);
+            ps.setString(5, pass);
+            ps.addBatch();
+            ps.executeBatch();
+            String sqlChecker = "SELECT (teacherID) from Attendance2.dbo.[Teacher]" +
+                                "WHERE email = "+email;
+            Statement stmt = con.createStatement();
+            ResultSet rs = stmt.executeQuery(sqlChecker);
+            while(rs.next()) {
+                sendId = rs.getInt("teacherID");
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        
+        addTeacherSubjects(sendId, subjectID);
+        }
+    }
+    public void addTeacherSubjects(int teacherID, int subjectID) {
+        String sql = "UPDATE Attendance2.dbo.[Subject] SET TeacherID=? WHERE SubjectID=?"; 
+        try (Connection con = ds.getConnection()) {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, teacherID);
+            ps.setInt(2, subjectID);
+            ps.addBatch();
+            ps.executeBatch();
+        } catch(SQLException ex) {
+            ex.printStackTrace();
+        }
     }
 }

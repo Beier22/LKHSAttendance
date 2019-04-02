@@ -8,6 +8,7 @@ package lkhsattendance.dal;
 
 import java.sql.Date;
 import java.util.List;
+import lkhsattendance.be.Clss;
 import lkhsattendance.be.Student;
 import lkhsattendance.be.Teacher;
 
@@ -24,5 +25,7 @@ public interface DAOFacade {
     public List<Student> getAllStudentsWithAttendance();
 
     public List<Teacher> getAllTeachersWithClassesAndSubjects();
+    
+    public List<Clss> getAllClasses();
     
 }
