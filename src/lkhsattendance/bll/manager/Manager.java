@@ -10,7 +10,9 @@ import java.sql.Date;
 import java.util.List;
 import lkhsattendance.be.Student;
 import lkhsattendance.be.Teacher;
-import lkhsattendance.dal.UserDAO;
+import lkhsattendance.dal.DAOFacade;
+import lkhsattendance.dal.StudentDAO;
+import lkhsattendance.dal.TeacherDAO;
 
 /**
  *
@@ -18,22 +20,23 @@ import lkhsattendance.dal.UserDAO;
  */
 public class Manager {
 
-    UserDAO dao = new UserDAO();
+    DAOFacade sDao = new StudentDAO();
+    DAOFacade tDao = (DAOFacade) new TeacherDAO();
 
     public void unattendance(Date date) {
-        dao.unattendance(date);
+        sDao.unattendance(date);
     }
 
     public void login(int StudentID, Date date) {
-        dao.login(StudentID, date);
+        sDao.login(StudentID, date);
     }
     
     public List<Student> getAllStudentsWithAttendance() {
-        return dao.getAllStudentsWithAttendance();
+        return sDao.getAllStudentsWithAttendance();
     }
     
     public List<Teacher> getAllTeachersWithClassesAndSubjects() {
-        return dao.getAllTeachersWithClassesAndSubjects();
+        return tDao.getAllTeachersWithClassesAndSubjects();
     }
     
 }
