@@ -15,13 +15,11 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import lkhsattendance.be.Clss;
 import lkhsattendance.be.Student;
 import lkhsattendance.be.Subject;
-import lkhsattendance.be.Teacher;
 
 /**
  *
@@ -32,6 +30,7 @@ public class StudentDAO implements DAOFacade {
     DBAccess dba = new DBAccess();
     SQLServerDataSource ds = dba.DBAccess();
 
+    @Override
     public void unattendance(Date date) {
         String sql = "INSERT INTO [Attendance2].dbo.Attendance (StudentID, yyyymmdd, Attendance) SELECT [Student].StudentID, ?, 0 FROM [Student] ";
         try (Connection con = ds.getConnection()) {
@@ -44,6 +43,7 @@ public class StudentDAO implements DAOFacade {
         }
     }
 
+    @Override
     public void login(int StudentID, Date date) {
         String sql = "UPDATE [Attendance2].[dbo].[Attendance] SET attendance=1 WHERE StudentID=? AND yyyymmdd=?";
         try (Connection con = ds.getConnection()) {
@@ -91,6 +91,7 @@ public class StudentDAO implements DAOFacade {
         return null;
     }
 
+    @Override
     public List<Student> getAllUsersWithData() {
         try (Connection con = ds.getConnection()) {
             List<Student> students = getAllStudents();

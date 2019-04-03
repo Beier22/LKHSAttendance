@@ -31,4 +31,6 @@ public interface DAOFacade {
     
     public void removeUser(int id);
     
+    //public void addUser(); //method for creating new student and teacher - if possible, avoid having two seperate methods
+    
 }

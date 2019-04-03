@@ -32,7 +32,7 @@ public class TeacherDAO implements DAOFacade {
     DBAccess dba = new DBAccess();
     SQLServerDataSource ds = dba.DBAccess();
     
-    
+        @Override
         public List<Subject> getAllSubjects() {
         try (Connection con = ds.getConnection()) {
 
@@ -86,6 +86,7 @@ public class TeacherDAO implements DAOFacade {
         return null;
     }
     
+    @Override
         public List<Teacher> getAllUsersWithData() {
         try (Connection con = ds.getConnection()) {
             List<Teacher> teachers = getAllTeachers();
@@ -136,6 +137,7 @@ public class TeacherDAO implements DAOFacade {
         return null;
     }
         
+    @Override
         public List<Clss> getAllClasses() {
         try (Connection con = ds.getConnection()) {
 
