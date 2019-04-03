@@ -75,7 +75,6 @@ public class AdminViewController implements Initializable {
             }
         }
         
-        
     }
     
     @FXML

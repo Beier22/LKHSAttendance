@@ -8,6 +8,7 @@
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -117,26 +118,30 @@
                   </Tab>
                   <Tab text="Add User">
                     <content>
-                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                           <children>
-                              <HBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <ScrollPane fitToWidth="true" hbarPolicy="NEVER">
+                           <content>
+                              <HBox>
                                  <children>
-                                    <VBox fx:id="vbox" prefHeight="200.0" prefWidth="10000.0">
+                                    <VBox fx:id="vbox" prefHeight="200.0" prefWidth="10000.0" spacing="10.0">
                                        <children>
-                                          <Label fx:id="lblCreate" text="Create Student" />
+                                          <Label fx:id="lblCreate" text="Create Student">
+                                             <VBox.margin>
+                                                <Insets bottom="-5.0" />
+                                             </VBox.margin>
+                                          </Label>
                                           <TextField promptText="First Name">
                                              <VBox.margin>
-                                                <Insets top="5.0" />
+                                                <Insets />
                                              </VBox.margin>
                                           </TextField>
                                           <TextField promptText="Last Name">
                                              <VBox.margin>
-                                                <Insets top="10.0" />
+                                                <Insets />
                                              </VBox.margin>
                                           </TextField>
                                           <HBox alignment="CENTER_LEFT">
                                              <VBox.margin>
-                                                <Insets top="10.0" />
+                                                <Insets />
                                              </VBox.margin>
                                              <children>
                                                 <TextField promptText="Email" />
@@ -149,24 +154,29 @@
                                           </HBox>
                                           <TextField promptText="Password">
                                              <VBox.margin>
-                                                <Insets top="10.0" />
+                                                <Insets />
                                              </VBox.margin>
                                           </TextField>
                                           <ComboBox fx:id="cbxClasses" prefWidth="150.0" promptText="Class">
                                              <VBox.margin>
-                                                <Insets top="10.0" />
+                                                <Insets />
                                              </VBox.margin>
                                           </ComboBox>
                                        </children>
                                     </VBox>
-                                    <StackPane prefHeight="150.0" prefWidth="10000.0">
+                                    <VBox prefWidth="10000.0" spacing="10.0">
                                        <children>
-                                          <Button fx:id="btnStudentTeacherToggle" mnemonicParsing="false" onAction="#clickToggle" text="Student" />
+                                          <Button fx:id="btnStudentTeacherToggle" mnemonicParsing="false" onAction="#clickToggle" text="Student">
+                                             <VBox.margin>
+                                                <Insets left="50.0" top="50.0" />
+                                             </VBox.margin>
+                                          </Button>
                                        </children>
-                                    </StackPane>
+                                    </VBox>
                                  </children>
                               </HBox>
-                           </children></AnchorPane>
+                           </content>
+                        </ScrollPane>
                     </content>
                   </Tab>
                </tabs>
