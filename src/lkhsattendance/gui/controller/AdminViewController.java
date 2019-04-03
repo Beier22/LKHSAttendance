@@ -127,4 +127,21 @@ public class AdminViewController implements Initializable {
         vbox.getChildren().add(temp);
     }
     
+    private List<Subject> getSelectedSubjects(){
+        List<Subject> subjects = new ArrayList();
+        for (int i = 6; i < vbox.getChildren().size(); i++) {
+            ComboBox temp = (ComboBox) vbox.getChildren().get(i);
+            Subject s = (Subject) temp.getSelectionModel().getSelectedItem();
+            subjects.add(s);
+        }
+        System.out.println(subjects);
+        
+        return subjects;
+    }
+
+    @FXML
+    private void clickCreate(ActionEvent event) {
+        getSelectedSubjects();
+    }
+    
 }
