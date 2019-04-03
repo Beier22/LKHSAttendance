@@ -50,11 +50,11 @@ public class Manager {
     }
 
     public void removeTeacher(int teacherID) {
-        tDao.remove(teacherID);
+        tDao.removeUser(teacherID);
     }
 
     public void removeStudent(int studentID) {
-        tDao.remove(studentID);
+        tDao.removeUser(studentID);
     }
     
     
