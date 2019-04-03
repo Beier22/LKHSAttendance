@@ -23,14 +23,12 @@ public interface DAOFacade {
 
     public void login(int StudentID, Date date);
 
-    public List<Student> getAllStudentsWithAttendance();
-
-    public List<Teacher> getAllTeachersWithClassesAndSubjects();
+    public List<?> getAllUsersWithData();
     
     public List<Clss> getAllClasses();
     
     public List<Subject> getAllSubjects();
     
-    public void remove(int id);
+    public void removeUser(int id);
     
 }

@@ -34,11 +34,11 @@ public class Manager {
     }
     
     public List<Student> getAllStudentsWithAttendance() {
-        return sDao.getAllStudentsWithAttendance();
+        return (List<Student>) sDao.getAllUsersWithData();
     }
     
     public List<Teacher> getAllTeachersWithClassesAndSubjects() {
-        return tDao.getAllTeachersWithClassesAndSubjects();
+        return (List<Teacher>) tDao.getAllUsersWithData();
     }
     
     public List<Clss> getAllClasses() {

@@ -86,7 +86,7 @@ public class TeacherDAO implements DAOFacade {
         return null;
     }
     
-        public List<Teacher> getAllTeachersWithClassesAndSubjects() {
+        public List<Teacher> getAllUsersWithData() {
         try (Connection con = ds.getConnection()) {
             List<Teacher> teachers = getAllTeachers();
             List<Clss> classes = getAllClasses();
@@ -176,10 +176,7 @@ public class TeacherDAO implements DAOFacade {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    @Override
-    public List<Student> getAllStudentsWithAttendance() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+
     
     public boolean teacherSubjectAvailability(int subjectID) {
         try (Connection con = ds.getConnection()) {
@@ -247,7 +244,7 @@ public class TeacherDAO implements DAOFacade {
     }
 
     @Override
-    public void remove(int id) {
+    public void removeUser(int id) {
         String sql = "DELETE FROM [Attendance2].[dbo].[Teacher] WHERE TeacherID = ?";
         try (Connection con = ds.getConnection()) {
             PreparedStatement ps = con.prepareStatement(sql);
