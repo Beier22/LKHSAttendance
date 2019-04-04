@@ -14,6 +14,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -101,9 +102,13 @@ public class StudentDAO implements DAOFacade {
            
             Statement stmt = con.createStatement();
             ResultSet rs = stmt.executeQuery(sql);
-
+            Calendar cal = Calendar.getInstance();
             while (rs.next()) {
-
+                cal.setTime(rs.getDate("yyyymmdd"));
+                if (!(cal.get(Calendar.DAY_OF_WEEK)==6 || cal.get(Calendar.DAY_OF_WEEK)==7)) 
+                {
+                    
+                
                 if (rs.getInt("attendance") == 0) {
                     for (Student student : students) {
                         if (student.getId() == rs.getInt("StudentID")) {
@@ -123,6 +128,7 @@ public class StudentDAO implements DAOFacade {
                             
                         }
                     }
+                }
                 }
 
             }

@@ -14,6 +14,7 @@ import java.net.URL;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -79,12 +80,12 @@ public class TeacherViewController implements Initializable {
         datePicker.setValue(LocalDate.now());
         selectedDate = Date.valueOf(datePicker.getValue());
         
-        studentOverviewItems.addAll("All students", "Absent students", "Attending Students");
+        studentOverviewItems.addAll("All students", "Absent students", "Attending students");
         studentOverview.setItems(studentOverviewItems);
         studentOverview.getSelectionModel().select(0);
 
         btnBack.setText("Log out");
-        btnMoreInfo.setText("Summarized");
+        btnMoreInfo.setText("Summarized overview");
         
         
     }
@@ -166,7 +167,6 @@ public class TeacherViewController implements Initializable {
             }
             lstStudents.getItems().addAll(attendantStudents);
         }
-        
     }
 
     @FXML
@@ -198,6 +198,13 @@ public class TeacherViewController implements Initializable {
 
     @FXML
     private void clickSummarized(ActionEvent event) {
+        try {
+            Stage stage = (Stage) btnBack.getScene().getWindow();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/lkhsattendance/gui/view/SummarizedAttendance.fxml"));
+            stage.setScene(new Scene(loader.load()));
+        } catch (IOException ex) {
+            Logger.getLogger(TeacherViewController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     
