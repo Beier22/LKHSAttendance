@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.Date;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -96,11 +97,26 @@ public class StudentViewController implements Initializable {
         txtWelcome.setText("Welcome, " + student.getNameF());
         List<Date> absentDays = this.student.getDaysAbsence();
         List<String> toString = new ArrayList();
+        Calendar cal = Calendar.getInstance();
         for (Date date : absentDays) {
-            String stringDate = date+"";
-            toString.add(stringDate);
+            cal.setTime(date);
+            if (cal.get(Calendar.DAY_OF_WEEK)==6 || cal.get(Calendar.DAY_OF_WEEK)==7)
+            {
+                //
+            }
+            else
+            {
+                String stringDate = date+"";
+                toString.add(stringDate);
+            }
         }
         listView.getItems().addAll(toString);
+        ObservableList<PieChart.Data> pieChartData = 
+                FXCollections.observableArrayList(
+                    new PieChart.Data("Attendance", student.getDaysAttendance().size()),
+                    new PieChart.Data("Absence", toString.size())
+                );
+            pie.setData(pieChartData);
         
         if(teacher != null)
             btnBack.setText("Back");
@@ -115,6 +131,8 @@ public class StudentViewController implements Initializable {
         cont.setUp(student);
         cont.setTeacher(teacher);
     }
+    
+    
     
     
 }
