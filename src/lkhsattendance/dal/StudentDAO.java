@@ -139,18 +139,18 @@ public class StudentDAO implements DAOFacade {
 
 
     
-    public void addNewStudent(String lName, String fName, int classID, String email, String pass) {
+    public void addNewStudent(Student s) {
         
         String sql = "INSERT INTO [Attendance2].[dbo].Student "
                 + "(StudentLName, StudentFName, StudentClassID, email, pass) "
                 + "VALUES (?, ?, ?, ?, ?)";
         try (Connection con = ds.getConnection()) {
             PreparedStatement ps = con.prepareStatement(sql);
-            ps.setString(1, lName);
-            ps.setString(2, fName);
-            ps.setInt(3, classID);
-            ps.setString(4, email);
-            ps.setString(5, pass);
+            ps.setString(1, s.getNameL());
+            ps.setString(2, s.getNameF());
+            ps.setInt(3, s.getClassId());
+            ps.setString(4, s.getEmail());
+            ps.setString(5, s.getPassword());
             ps.addBatch();
             ps.executeBatch();
         } catch (SQLException ex) {

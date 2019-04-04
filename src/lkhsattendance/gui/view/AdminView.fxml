@@ -129,12 +129,12 @@
                                                 <Insets bottom="-5.0" />
                                              </VBox.margin>
                                           </Label>
-                                          <TextField promptText="First Name">
+                                          <TextField fx:id="inpNameF" promptText="First Name">
                                              <VBox.margin>
                                                 <Insets />
                                              </VBox.margin>
                                           </TextField>
-                                          <TextField promptText="Last Name">
+                                          <TextField fx:id="inpNameL" promptText="Last Name">
                                              <VBox.margin>
                                                 <Insets />
                                              </VBox.margin>
@@ -144,40 +144,48 @@
                                                 <Insets />
                                              </VBox.margin>
                                              <children>
-                                                <TextField promptText="Email" />
-                                                <Label text="\@easv365.dk" textFill="#a4a4a4">
+                                                <TextField fx:id="inpEmail" promptText="Email" />
+                                                <Label fx:id="lblEmail" text="\@easv365.dk" textFill="#a4a4a4">
                                                    <font>
                                                       <Font name="System Italic" size="12.0" />
                                                    </font>
                                                 </Label>
                                              </children>
                                           </HBox>
-                                          <TextField promptText="Password">
+                                          <TextField fx:id="inpPassword" promptText="Password">
                                              <VBox.margin>
                                                 <Insets />
                                              </VBox.margin>
                                           </TextField>
-                                          <ComboBox fx:id="cbxClasses" prefWidth="150.0" promptText="Class">
+                                          <ComboBox fx:id="cbxClass" prefWidth="150.0" promptText="Class">
                                              <VBox.margin>
                                                 <Insets />
                                              </VBox.margin>
                                           </ComboBox>
                                        </children>
                                     </VBox>
-                                    <HBox maxHeight="100.0" prefWidth="10000.0">
+                                    <VBox prefWidth="10000.0">
                                        <children>
-                                          <StackPane prefWidth="10000.0">
+                                          <StackPane alignment="TOP_CENTER" prefHeight="100.0">
                                              <children>
-                                                <Button fx:id="btnStudentTeacherToggle" mnemonicParsing="false" onAction="#clickToggle" text="Student" />
+                                                <Button fx:id="btnStudentTeacherToggle" mnemonicParsing="false" onAction="#clickToggle" text="Toggle to Teacher">
+                                                   <StackPane.margin>
+                                                      <Insets top="10.0" />
+                                                   </StackPane.margin>
+                                                </Button>
                                              </children>
                                           </StackPane>
-                                          <StackPane prefHeight="150.0" prefWidth="10000.0">
+                                          <StackPane alignment="BOTTOM_CENTER" prefHeight="100.0">
                                              <children>
-                                                <Button mnemonicParsing="false" onAction="#clickCreate" text="Create" />
+                                                <Button fx:id="btnCreate" mnemonicParsing="false" onAction="#clickCreate" text="Add Student">
+                                                   <StackPane.margin>
+                                                      <Insets bottom="10.0" />
+                                                   </StackPane.margin>
+                                                </Button>
                                              </children>
                                           </StackPane>
                                        </children>
-                                    </HBox>
+                                    </VBox>
                                  </children>
                               </HBox>
                            </content>

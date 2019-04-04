@@ -21,6 +21,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -38,30 +39,26 @@ import lkhsattendance.gui.model.Model;
  */
 public class AdminViewController implements Initializable {
 
-    @FXML
-    private ListView<Teacher> lstTeachers;
-    @FXML
-    private ListView<Student> lstStudents;
-    
+    @FXML private ListView<Teacher> lstTeachers;
+    @FXML private ListView<Student> lstStudents;
+    @FXML private Button btnLogout;
+    @FXML private Button btnStudentTeacherToggle;
+    @FXML private VBox vbox;
+    @FXML private Label lblCreate;
+    @FXML private TextField inpNameF;
+    @FXML private TextField inpNameL;
+    @FXML private TextField inpEmail;
+    @FXML private Label lblEmail;
+    @FXML private TextField inpPassword;
+    @FXML private ComboBox<Clss> cbxClass;
+    @FXML private Button btnCreate;
+
     private IModel model = new Model();
-    @FXML
-    private Button btnLogout;
-    @FXML
-    private Button btnStudentTeacherToggle;
-    
     private boolean isCreateStudent = true;
-    @FXML
-    private VBox vbox;
-    
-    
-    @FXML
-    private Label lblCreate;
-    @FXML
-    private ComboBox<Clss> cbxClasses;
-    
     private int n = 0;
     private List<Subject> subjectsWithoutTeacher = new ArrayList();
-
+    private ComboBox<Subject> cbxFirstSubject = new ComboBox();
+    
     /**
      * Initializes the controller class.
      */
@@ -69,7 +66,7 @@ public class AdminViewController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         lstStudents.getItems().addAll(model.getAllStudentsWithAttendance());
         lstTeachers.getItems().addAll(model.getAllTeachersWithClassesAndSubjects());
-        cbxClasses.getItems().addAll(model.getAllClasses());
+        cbxClass.getItems().addAll(model.getAllClasses());
         for (Subject subject : model.getAllSubjects()) {
             if(subject.getTeacherId() == 0){
                 subjectsWithoutTeacher.add(subject);
@@ -91,30 +88,33 @@ public class AdminViewController implements Initializable {
     private void clickToggle(ActionEvent event) {
         if(isCreateStudent){
             isCreateStudent = false;
-            btnStudentTeacherToggle.setText("Teacher");
+            btnStudentTeacherToggle.setText("Toggle to Student");
             lblCreate.setText("Create Teacher");
+            btnCreate.setText("Add Teacher");
+            lblEmail.setText("@easv.dk");
             setUpTeacher();
         } else {
             isCreateStudent = true;
-            btnStudentTeacherToggle.setText("Student");
+            btnStudentTeacherToggle.setText("Toggle to Teacher");
             lblCreate.setText("Create Student");
+            btnCreate.setText("Add Student");
+            lblEmail.setText("@easv365.dk");
             setUpStudent();
         }
     }
     
     private void setUpTeacher(){
-        vbox.getChildren().remove(cbxClasses);
+        vbox.getChildren().remove(cbxClass);
         
         Button btn = new Button();
         btn.setText("Add Subject");
         btn.setOnAction((event) -> {
             addSubject();
         });
-        ComboBox<Subject> cbx = new ComboBox();
-        cbx.setPromptText("Subject");
-        cbx.getItems().addAll(subjectsWithoutTeacher);
+        cbxFirstSubject.setPromptText("Subject");
+        cbxFirstSubject.getItems().addAll(subjectsWithoutTeacher);
         HBox hbox = new HBox();
-        hbox.getChildren().add(cbx);
+        hbox.getChildren().add(cbxFirstSubject);
         vbox.getChildren().addAll(btn, hbox);
         
         
@@ -123,7 +123,7 @@ public class AdminViewController implements Initializable {
     
     private void setUpStudent(){
         vbox.getChildren().remove(5, vbox.getChildren().size());
-        vbox.getChildren().add(cbxClasses);
+        vbox.getChildren().add(cbxClass);
     }
     
     private void addSubject(){
@@ -164,9 +164,28 @@ public class AdminViewController implements Initializable {
     @FXML
     private void clickCreate(ActionEvent event) {
         if(isCreateStudent){
-            
+            if(inpNameF.getText().isEmpty() || inpNameL.getText().isEmpty() || inpEmail.getText().isEmpty() || cbxClass.getSelectionModel().getSelectedItem() == null){
+                System.out.println("Input required fields");
+                return;
+            }
+            Student s = new Student();
+            s.setNameF(inpNameF.getText());
+            s.setNameL(inpNameL.getText());
+            s.setEmail(inpEmail.getText());
+            s.setPassword(inpPassword.getText());
+            s.setClassId(cbxClass.getSelectionModel().getSelectedItem().getId());
         } else {
-            getSelectedSubjects();
+            if(inpNameF.getText().isEmpty() || inpNameL.getText().isEmpty() || inpEmail.getText().isEmpty() || cbxFirstSubject.getSelectionModel().getSelectedItem() == null){
+                System.out.println("Input required fields");
+                return;
+            }
+            Teacher t = new Teacher();
+            t.setNameF(inpNameF.getText());
+            t.setNameL(inpNameL.getText());
+            t.setEmail(inpEmail.getText());
+            t.setPassword(inpPassword.getText());
+            t.setSubjectsTeaching(getSelectedSubjects());
+            System.out.println(t);
         }
     }
     
