@@ -40,29 +40,20 @@ import lkhsattendance.gui.model.Model;
  * @author LKHS
  */
 public class LoginViewController implements Initializable {
-
-    private Label label;
-
-    IModel model = new Model();
-
-    @FXML
-    private JFXTextField txtEmail;
-    @FXML
-    private JFXPasswordField txtPassword;
-    @FXML
-    private JFXToggleButton rememberMe;
-    @FXML
-    private JFXButton btnLogin;
-    @FXML
-    private Text txt;
     
-    Preferences prefs = Preferences.userNodeForPackage(this.getClass());
 
-    List<Student> students = new ArrayList();
-    List<Teacher> teachers = new ArrayList();
-
-    LocalDate localDate = LocalDate.now();
-    Date date = java.sql.Date.valueOf(localDate);
+    @FXML private JFXTextField txtEmail;
+    @FXML private JFXPasswordField txtPassword;
+    @FXML private JFXToggleButton rememberMe;
+    @FXML private JFXButton btnLogin;
+    @FXML private Text txt;
+    
+    private Preferences prefs = Preferences.userNodeForPackage(this.getClass());
+    private IModel model = new Model();
+    private List<Student> students = new ArrayList();
+    private List<Teacher> teachers = new ArrayList();
+    private LocalDate localDate = LocalDate.now();
+    private Date date = java.sql.Date.valueOf(localDate);
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {

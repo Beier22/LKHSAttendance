@@ -40,20 +40,15 @@ import lkhsattendance.be.Teacher;
  * @author alex
  */
 public class WeekdayViewController implements Initializable {
-    @FXML
-    private JFXButton btnBack;
-    @FXML
-    private JFXButton btnMoreInfo;
+    @FXML private JFXButton btnBack;
+    @FXML private JFXButton btnMoreInfo;
+    @FXML private Text totalAbsence;
     
-    CategoryAxis weekdayAxis = new CategoryAxis();
-    NumberAxis yAxis = new NumberAxis();
-    @FXML
-    BarChart<String, Number> barChart = new BarChart<>(weekdayAxis, yAxis);
+    private CategoryAxis weekdayAxis = new CategoryAxis();
+    private NumberAxis yAxis = new NumberAxis();
+    @FXML private BarChart<String, Number> barChart = new BarChart<>(weekdayAxis, yAxis);
   
-    Teacher teacher;
-    @FXML
-    private Text totalAbsence;
-    
+    private Teacher teacher;
     private Student student;
         
     
@@ -90,6 +85,7 @@ public class WeekdayViewController implements Initializable {
         totalAbsence.setText(abs);
         
         barChart.setTitle("Summarized attendance over weekdays");
+        
         weekdayAxis.setLabel("Weekday");
         weekdayAxis.setCategories(FXCollections.<String>observableArrayList(
             Arrays.asList("Monday", "Tuesday", "Wednesday", "Thursday", "Friday")));

@@ -43,18 +43,12 @@ import lkhsattendance.gui.model.Model;
  */
 public class TeacherViewController implements Initializable {
     
-    @FXML
-    private JFXComboBox<String> studentOverview;
-    @FXML
-    private JFXComboBox<Clss> pickClass;
-    @FXML
-    private JFXDatePicker datePicker;
-    @FXML
-    private JFXListView<Student> lstStudents;
-    @FXML
-    private JFXButton btnBack;
-    @FXML
-    private JFXButton btnMoreInfo;
+    @FXML private JFXComboBox<String> studentOverview;
+    @FXML private JFXComboBox<Clss> pickClass;
+    @FXML private JFXDatePicker datePicker;
+    @FXML private JFXListView<Student> lstStudents;
+    @FXML private JFXButton btnBack;
+    @FXML private JFXButton btnMoreInfo;
 
     private Teacher teacher;
     private Clss selectedClass;
@@ -63,10 +57,7 @@ public class TeacherViewController implements Initializable {
     private ObservableList<String> studentOverviewItems = FXCollections.observableArrayList();
     private ObservableList<Clss> classOverviewItems = FXCollections.observableArrayList();
     private IModel model = new Model();
-    
-    //private List<Teacher> teachers = new ArrayList();
     private List<Student> students = new ArrayList();
-    //private List<Clss> classes = new ArrayList();
 
     
     /**
