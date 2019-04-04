@@ -32,12 +32,12 @@
                <children>
                   <StackPane alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" prefHeight="150.0" prefWidth="10000.0">
                      <children>
-                        <JFXButton id="btnBack" fx:id="logOutButton" onAction="#handleLogOut" ripplerFill="WHITE" text="Back" />
+                        <JFXButton id="btnBack" fx:id="logOutButton" onAction="#handleLogOut" ripplerFill="WHITE" text="Log out" />
                      </children>
                   </StackPane>
                   <StackPane alignment="CENTER_RIGHT" maxWidth="1.7976931348623157E308" prefHeight="150.0" prefWidth="10000.0">
                      <children>
-                        <JFXButton id="btnInfo" fx:id="btnMoreInfo" onAction="#clickDateOverview" ripplerFill="WHITE" text="Date overview" />
+                        <JFXButton id="btnInfo" fx:id="btnDateOverview" onAction="#clickDateOverview" ripplerFill="WHITE" text="Date overview" />
                      </children>
                   </StackPane>
                </children>

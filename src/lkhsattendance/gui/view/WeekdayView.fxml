@@ -43,11 +43,7 @@
                         <JFXButton id="btnBack" fx:id="btnBack" onAction="#handleBtnBack" ripplerFill="WHITE" text="Back" />
                      </children>
                   </StackPane>
-                  <StackPane alignment="CENTER_RIGHT" maxWidth="1.7976931348623157E308" prefHeight="150.0" prefWidth="10000.0">
-                     <children>
-                        <JFXButton id="btnInfo" fx:id="btnMoreInfo" ripplerFill="WHITE" />
-                     </children>
-                  </StackPane>
+                  <StackPane alignment="CENTER_RIGHT" maxWidth="1.7976931348623157E308" prefHeight="150.0" prefWidth="10000.0" />
                </children>
             </HBox>
          </children>

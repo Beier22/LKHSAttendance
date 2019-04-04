@@ -94,7 +94,7 @@ public class StudentViewController implements Initializable {
         this.student = student;
         this.teacher = teacher;
         System.out.println("Student: " + student.getNameF());
-        txtWelcome.setText("Welcome, " + student.getNameF());
+        txtWelcome.setText(student.getNameL() + ", " + student.getNameF());
         List<Date> absentDays = this.student.getDaysAbsence();
         List<String> toString = new ArrayList();
         Calendar cal = Calendar.getInstance();
@@ -118,8 +118,10 @@ public class StudentViewController implements Initializable {
                 );
             pie.setData(pieChartData);
         
-        if(teacher != null)
+        if(teacher != null){
             btnBack.setText("Back");
+            btnRequest.setText("Change absence");
+        }
     }
 
     @FXML

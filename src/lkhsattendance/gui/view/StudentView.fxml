@@ -13,11 +13,11 @@
 
 <AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" stylesheets="@../css/StudentView.css" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lkhsattendance.gui.controller.StudentViewController">
    <children>
-      <VBox alignment="CENTER" layoutX="150.0" layoutY="32.892578125" AnchorPane.bottomAnchor="60.0" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="100.0" AnchorPane.topAnchor="60.0">
+      <VBox alignment="CENTER_LEFT" layoutX="150.0" layoutY="32.892578125" AnchorPane.bottomAnchor="60.0" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="100.0" AnchorPane.topAnchor="60.0">
          <children>
-            <Text fx:id="txtWelcome" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="301.0">
+            <Text fx:id="txtWelcome" strokeType="OUTSIDE" strokeWidth="0.0" text="Last, First" wrappingWidth="301.0">
                <font>
-                  <Font name="System Bold" size="14.0" />
+                  <Font size="18.0" />
                </font>
                <VBox.margin>
                   <Insets bottom="20.0" />

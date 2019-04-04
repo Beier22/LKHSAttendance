@@ -65,7 +65,6 @@ public class TeacherViewController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        //teachers = model.getAllTeachersWithClassesAndSubjects();
         students = model.getAllStudentsWithAttendance();
         
         datePicker.setValue(LocalDate.now());
@@ -169,23 +168,6 @@ public class TeacherViewController implements Initializable {
         StudentViewController cont = loader.getController();
         cont.setUp(student, teacher);
     }
-    
-    /*
-    @FXML
-    private void handleMoreInfo(MouseEvent event) {
-        try {
-            Student student = lstStudents.getSelectionModel().getSelectedItem();
-            Stage stage = (Stage) btnBack.getScene().getWindow();
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/lkhsattendance/gui/view/WeekdayView.fxml"));
-            stage.setScene(new Scene(loader.load()));
-            WeekdayViewController cont = loader.getController();
-            cont.setUp(student);
-            cont.setTeacher(teacher);
-        } catch (IOException ex) {
-            Logger.getLogger(TeacherViewController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-    */
 
     @FXML
     private void clickSummarized(ActionEvent event) {
@@ -193,6 +175,8 @@ public class TeacherViewController implements Initializable {
             Stage stage = (Stage) btnBack.getScene().getWindow();
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/lkhsattendance/gui/view/SummarizedAttendance.fxml"));
             stage.setScene(new Scene(loader.load()));
+            SummarizedAttendanceController cont = loader.getController();
+            cont.setUp(teacher, classOverviewItems);
         } catch (IOException ex) {
             Logger.getLogger(TeacherViewController.class.getName()).log(Level.SEVERE, null, ex);
         }

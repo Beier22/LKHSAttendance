@@ -41,7 +41,6 @@ import lkhsattendance.be.Teacher;
  */
 public class WeekdayViewController implements Initializable {
     @FXML private JFXButton btnBack;
-    @FXML private JFXButton btnMoreInfo;
     @FXML private Text totalAbsence;
     
     private CategoryAxis weekdayAxis = new CategoryAxis();
@@ -121,19 +120,5 @@ public class WeekdayViewController implements Initializable {
             Logger.getLogger(WeekdayViewController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    
-    /*@FXML
-    private void handleBtnBack(ActionEvent event) {
-        try {
-                Stage stage = (Stage) btnBack.getScene().getWindow();
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/lkhsattendance/gui/view/TeacherView.fxml"));
-                stage.setScene(new Scene(loader.load()));
-                TeacherViewController cont = loader.getController();
-                cont.setUp(teacher);
-        } catch (IOException ex) {
-            Logger.getLogger(WeekdayViewController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }*/
     
 }
