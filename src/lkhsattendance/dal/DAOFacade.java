@@ -9,9 +9,7 @@ package lkhsattendance.dal;
 import java.sql.Date;
 import java.util.List;
 import lkhsattendance.be.Clss;
-import lkhsattendance.be.Student;
 import lkhsattendance.be.Subject;
-import lkhsattendance.be.Teacher;
 
 /**
  *

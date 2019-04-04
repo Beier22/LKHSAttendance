@@ -16,6 +16,8 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -81,10 +83,8 @@ public class TeacherViewController implements Initializable {
         studentOverview.setItems(studentOverviewItems);
         studentOverview.getSelectionModel().select(0);
 
-
-        
         btnBack.setText("Log out");
-        
+        btnMoreInfo.setText("Summarized");
         
         
     }
@@ -171,6 +171,21 @@ public class TeacherViewController implements Initializable {
 
     @FXML
     private void handleMoreInfo(MouseEvent event) {
+        try {
+            Student student = lstStudents.getSelectionModel().getSelectedItem();
+                Stage stage = (Stage) btnBack.getScene().getWindow();
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/lkhsattendance/gui/view/WeekdayView.fxml"));
+                stage.setScene(new Scene(loader.load()));
+                WeekdayViewController cont = loader.getController();
+                cont.setUp(student);
+                cont.setTeacher(teacher);
+        } catch (IOException ex) {
+            Logger.getLogger(TeacherViewController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    @FXML
+    private void clickSummarized(ActionEvent event) {
     }
 
     

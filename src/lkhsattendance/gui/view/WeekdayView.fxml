@@ -1,42 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
-<?import com.jfoenix.controls.JFXComboBox?>
-<?import com.jfoenix.controls.JFXDatePicker?>
-<?import com.jfoenix.controls.JFXListView?>
-<?import javafx.geometry.Insets?>
+<?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Text?>
 
-<AnchorPane id="AnchorPane" prefHeight="525.0" prefWidth="750.0" stylesheets="@../css/TeacherView.css" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lkhsattendance.gui.controller.TeacherViewController">
+<AnchorPane id="AnchorPane" prefHeight="525.0" prefWidth="750.0" stylesheets="@../css/TeacherView.css" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lkhsattendance.gui.controller.WeekdayViewController">
    <children>
       <VBox layoutX="90.0" layoutY="40.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="10000.0" prefWidth="10000.0" AnchorPane.bottomAnchor="60.0" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="100.0" AnchorPane.topAnchor="60.0">
          <children>
             <HBox alignment="CENTER_RIGHT" minHeight="25.0" prefHeight="25.0" prefWidth="461.0">
                <children>
-                  <StackPane alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" prefHeight="25.0" prefWidth="10000.0">
-                     <children>
-                        <JFXComboBox fx:id="pickClass" onAction="#clickPickClass" prefHeight="25.0" prefWidth="200.0" promptText="Class" />
-                     </children>
-                  </StackPane>
-                  <StackPane maxWidth="1.7976931348623157E308" prefHeight="25.0" prefWidth="10000.0">
-                     <children>
-                        <JFXComboBox fx:id="studentOverview" onAction="#handleStudentOverview" prefHeight="25.0" prefWidth="200.0" />
-                     </children>
-                  </StackPane>
+                  <StackPane alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" prefHeight="25.0" prefWidth="10000.0" />
                   <StackPane alignment="CENTER_RIGHT" maxWidth="1.7976931348623157E308" prefHeight="25.0" prefWidth="10000.0">
                      <children>
-                        <JFXDatePicker fx:id="datePicker" editable="false" onAction="#pickDate" prefHeight="25.0" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Total absence:   " textAlignment="RIGHT" />
                      </children>
                   </StackPane>
+                  <StackPane alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" prefHeight="25.0" prefWidth="10000.0">
+                     <children>
+                        <Text fx:id="totalAbsence" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
+                     </children></StackPane>
                </children>
             </HBox>
-            <JFXListView fx:id="lstStudents" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" nodeOrientation="RIGHT_TO_LEFT" onMouseClicked="#handleMoreInfo" prefHeight="10000.0" prefWidth="10000.0">
-               <VBox.margin>
-                  <Insets bottom="8.0" top="8.0" />
-               </VBox.margin></JFXListView>
+            <BarChart fx:id="barChart">
+              <xAxis>
+                <CategoryAxis side="BOTTOM" />
+              </xAxis>
+              <yAxis>
+                <NumberAxis side="LEFT" />
+              </yAxis>
+            </BarChart>
             <HBox minHeight="50.0" prefHeight="51.0" prefWidth="408.0">
                <children>
                   <StackPane alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" prefHeight="150.0" prefWidth="10000.0">
@@ -46,7 +45,7 @@
                   </StackPane>
                   <StackPane alignment="CENTER_RIGHT" maxWidth="1.7976931348623157E308" prefHeight="150.0" prefWidth="10000.0">
                      <children>
-                        <JFXButton id="btnInfo" fx:id="btnMoreInfo" onAction="#clickSummarized" ripplerFill="WHITE" />
+                        <JFXButton id="btnInfo" fx:id="btnMoreInfo" ripplerFill="WHITE" />
                      </children>
                   </StackPane>
                </children>
