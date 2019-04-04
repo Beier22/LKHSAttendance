@@ -21,6 +21,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import lkhsattendance.be.Clss;
@@ -109,8 +110,13 @@ public class AdminViewController implements Initializable {
         btn.setOnAction((event) -> {
             addSubject();
         });
-        vbox.getChildren().add(btn);
-        addSubject();
+        ComboBox<Subject> cbx = new ComboBox();
+        cbx.setPromptText("Subject");
+        cbx.getItems().addAll(subjectsWithoutTeacher);
+        HBox hbox = new HBox();
+        hbox.getChildren().add(cbx);
+        vbox.getChildren().addAll(btn, hbox);
+        
         
         
     }
@@ -124,7 +130,45 @@ public class AdminViewController implements Initializable {
         ComboBox<Subject> temp = new ComboBox();
         temp.setPromptText("Subject");
         temp.getItems().addAll(subjectsWithoutTeacher);
-        vbox.getChildren().add(temp);
+        
+        Button btn = new Button();
+        btn.setText("-");
+        btn.setOnAction((event) -> {
+            Button btn2 = (Button) event.getSource();
+            HBox hb = (HBox) btn2.getParent();
+            vbox.getChildren().remove(hb);
+        });
+        
+        HBox hbox = new HBox();
+        hbox.setSpacing(10);
+        hbox.getChildren().addAll(temp, btn);
+        
+        vbox.getChildren().add(hbox);
     }
+    
+    private List<Subject> getSelectedSubjects(){
+        List<Subject> subjects = new ArrayList();
+        for (int i = 6; i < vbox.getChildren().size(); i++) {
+            HBox hbox = (HBox) vbox.getChildren().get(i);
+            ComboBox cbx = (ComboBox) hbox.getChildren().get(0);
+            Subject s = (Subject) cbx.getSelectionModel().getSelectedItem();
+            if(s == null)
+                continue;
+            subjects.add(s);
+        }
+        System.out.println(subjects);
+        
+        return subjects;
+    }
+
+    @FXML
+    private void clickCreate(ActionEvent event) {
+        if(isCreateStudent){
+            
+        } else {
+            getSelectedSubjects();
+        }
+    }
+    
     
 }
