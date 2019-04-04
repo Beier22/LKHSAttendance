@@ -131,7 +131,7 @@ public class TeacherViewController implements Initializable {
             lstStudents.getItems().clear();
             ObservableList<Student> allStudents = FXCollections.observableArrayList();
             for (Student student : students) {
-                if(student.getClassId()==(selectedClass.getId())) {
+                if(student.getClassId()==(selectedClass.getId()) && (student.getDaysAttendance().contains(selectedDate) || student.getDaysAbsence().contains(selectedDate)) ) {
                     allStudents.add(student);
                 }
             }
