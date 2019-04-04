@@ -53,6 +53,8 @@ public class WeekdayViewController implements Initializable {
     Teacher teacher;
     @FXML
     private Text totalAbsence;
+    
+    private Student student;
         
     
     /**
@@ -65,7 +67,7 @@ public class WeekdayViewController implements Initializable {
     
 
     public void setUp(Student student) {
-        
+        this.student = student;
         int a = 0, b = 0, c = 0, d = 0, e = 0;
         List<Date> absenceDays = student.getDaysAbsence();
         Calendar cal = Calendar.getInstance();
@@ -115,6 +117,20 @@ public class WeekdayViewController implements Initializable {
     private void handleBtnBack(ActionEvent event) {
         try {
                 Stage stage = (Stage) btnBack.getScene().getWindow();
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/lkhsattendance/gui/view/StudentView.fxml"));
+                stage.setScene(new Scene(loader.load()));
+                StudentViewController cont = loader.getController();
+                cont.setUp(student, teacher);
+        } catch (IOException ex) {
+            Logger.getLogger(WeekdayViewController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    
+    /*@FXML
+    private void handleBtnBack(ActionEvent event) {
+        try {
+                Stage stage = (Stage) btnBack.getScene().getWindow();
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/lkhsattendance/gui/view/TeacherView.fxml"));
                 stage.setScene(new Scene(loader.load()));
                 TeacherViewController cont = loader.getController();
@@ -122,6 +138,6 @@ public class WeekdayViewController implements Initializable {
         } catch (IOException ex) {
             Logger.getLogger(WeekdayViewController.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }
+    }*/
     
 }

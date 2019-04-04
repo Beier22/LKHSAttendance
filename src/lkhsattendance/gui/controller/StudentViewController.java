@@ -27,6 +27,7 @@ import javafx.scene.image.Image;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import lkhsattendance.be.Student;
+import lkhsattendance.be.Teacher;
 import lkhsattendance.gui.model.IModel;
 import lkhsattendance.gui.model.Model;
 
@@ -37,19 +38,14 @@ import lkhsattendance.gui.model.Model;
  */
 public class StudentViewController implements Initializable {
 
-    @FXML
-    private Text txtWelcome;
-    @FXML
-    private ListView<String> listView;
-    @FXML
-    private PieChart pie;
-    @FXML
-    private Button btnBack;
-    @FXML
-    private Button btnRequest;
+    @FXML private Text txtWelcome;
+    @FXML private ListView<String> listView;
+    @FXML private PieChart pie;
+    @FXML private Button btnBack;
+    @FXML private Button btnRequest;
     
     private Student student;
-    
+    private Teacher teacher;
     private IModel model = new Model();
 
     /**
@@ -62,11 +58,19 @@ public class StudentViewController implements Initializable {
 
     @FXML
     private void handleBtnBack(ActionEvent event) throws IOException {
-        Stage stage = (Stage) btnBack.getScene().getWindow();
-        Parent root = FXMLLoader.load(getClass().getResource("/lkhsattendance/gui/view/LoginView.fxml"));
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
+        if(teacher == null) {
+            Stage stage = (Stage) btnBack.getScene().getWindow();
+            Parent root = FXMLLoader.load(getClass().getResource("/lkhsattendance/gui/view/LoginView.fxml"));
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+        } else {
+            Stage stage = (Stage) btnBack.getScene().getWindow();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/lkhsattendance/gui/view/TeacherView.fxml"));
+            stage.setScene(new Scene(loader.load()));
+            TeacherViewController cont = loader.getController();
+            cont.setUp(teacher);
+        }
     }
 
     @FXML
@@ -85,8 +89,9 @@ public class StudentViewController implements Initializable {
     }
     */
     
-    public void setUp(Student student) {
+    public void setUp(Student student, Teacher teacher) {
         this.student = student;
+        this.teacher = teacher;
         System.out.println("Student: " + student.getNameF());
         txtWelcome.setText("Welcome, " + student.getNameF());
         List<Date> absentDays = this.student.getDaysAbsence();
@@ -96,6 +101,19 @@ public class StudentViewController implements Initializable {
             toString.add(stringDate);
         }
         listView.getItems().addAll(toString);
+        
+        if(teacher != null)
+            btnBack.setText("Back");
+    }
+
+    @FXML
+    private void clickWeekly(ActionEvent event) throws IOException {
+        Stage stage = (Stage) btnBack.getScene().getWindow();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/lkhsattendance/gui/view/WeekdayView.fxml"));
+        stage.setScene(new Scene(loader.load()));
+        WeekdayViewController cont = loader.getController();
+        cont.setUp(student);
+        cont.setTeacher(teacher);
     }
     
     

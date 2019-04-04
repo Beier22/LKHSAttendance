@@ -170,19 +170,31 @@ public class TeacherViewController implements Initializable {
     }
 
     @FXML
+    private void handleMoreInfo(MouseEvent event) throws IOException {
+        Student student = lstStudents.getSelectionModel().getSelectedItem();
+        Stage stage = (Stage) lstStudents.getScene().getWindow();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/lkhsattendance/gui/view/StudentView.fxml"));
+        stage.setScene(new Scene(loader.load()));
+        StudentViewController cont = loader.getController();
+        cont.setUp(student, teacher);
+    }
+    
+    /*
+    @FXML
     private void handleMoreInfo(MouseEvent event) {
         try {
             Student student = lstStudents.getSelectionModel().getSelectedItem();
-                Stage stage = (Stage) btnBack.getScene().getWindow();
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/lkhsattendance/gui/view/WeekdayView.fxml"));
-                stage.setScene(new Scene(loader.load()));
-                WeekdayViewController cont = loader.getController();
-                cont.setUp(student);
-                cont.setTeacher(teacher);
+            Stage stage = (Stage) btnBack.getScene().getWindow();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/lkhsattendance/gui/view/WeekdayView.fxml"));
+            stage.setScene(new Scene(loader.load()));
+            WeekdayViewController cont = loader.getController();
+            cont.setUp(student);
+            cont.setTeacher(teacher);
         } catch (IOException ex) {
             Logger.getLogger(TeacherViewController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    */
 
     @FXML
     private void clickSummarized(ActionEvent event) {

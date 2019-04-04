@@ -57,7 +57,10 @@
                         </HBox>
                      </children>
                   </StackPane>
-                  <StackPane alignment="CENTER_RIGHT" maxWidth="1.7976931348623157E308" prefWidth="10000.0" />
+                  <StackPane alignment="CENTER_RIGHT" maxWidth="1.7976931348623157E308" prefWidth="10000.0">
+                     <children>
+                        <Button mnemonicParsing="false" onAction="#clickWeekly" text="Weekly Overview" />
+                     </children></StackPane>
                </children>
             </HBox>
          </children>

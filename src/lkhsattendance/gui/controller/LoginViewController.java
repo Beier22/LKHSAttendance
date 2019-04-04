@@ -125,7 +125,7 @@ public class LoginViewController implements Initializable {
                     FXMLLoader loader = new FXMLLoader(getClass().getResource("/lkhsattendance/gui/view/StudentView.fxml"));
                     stage.setScene(new Scene(loader.load()));
                     StudentViewController cont = loader.getController();
-                    cont.setUp(student);
+                    cont.setUp(student, null);
                     setPrefs(inputEmail, inputPassword);
                     return;
                 } else {
