@@ -21,6 +21,7 @@ import java.util.logging.Logger;
 import lkhsattendance.be.Clss;
 import lkhsattendance.be.Student;
 import lkhsattendance.be.Subject;
+import lkhsattendance.be.Teacher;
 
 /**
  *
@@ -104,8 +105,9 @@ public class StudentDAO implements DAOFacade {
             ResultSet rs = stmt.executeQuery(sql);
             Calendar cal = Calendar.getInstance();
             while (rs.next()) {
+                if (!(rs.getDate("yyyymmdd")==null)) {
                 cal.setTime(rs.getDate("yyyymmdd"));
-                if (!(cal.get(Calendar.DAY_OF_WEEK)==6 || cal.get(Calendar.DAY_OF_WEEK)==7)) 
+                if (!(cal.get(Calendar.DAY_OF_WEEK)==7 || cal.get(Calendar.DAY_OF_WEEK)==8)) 
                 {
                     
                 
@@ -129,7 +131,7 @@ public class StudentDAO implements DAOFacade {
                         }
                     }
                 }
-                }
+                }}
 
             }
             return students;
@@ -144,12 +146,13 @@ public class StudentDAO implements DAOFacade {
     }
 
 
-    
-    public void addNewStudent(Student s) {
-        
+    @Override
+    public void createStudent(Student s) {
+        System.out.println("testtesttest");
         String sql = "INSERT INTO [Attendance2].[dbo].Student "
                 + "(StudentLName, StudentFName, StudentClassID, email, pass) "
                 + "VALUES (?, ?, ?, ?, ?)";
+        
         try (Connection con = ds.getConnection()) {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, s.getNameL());
@@ -159,6 +162,7 @@ public class StudentDAO implements DAOFacade {
             ps.setString(5, s.getPassword());
             ps.addBatch();
             ps.executeBatch();
+            System.out.println("Student has been successfully created");
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
@@ -186,6 +190,11 @@ public class StudentDAO implements DAOFacade {
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
+    }
+
+    @Override
+    public void createTeacher(Teacher teacher) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 

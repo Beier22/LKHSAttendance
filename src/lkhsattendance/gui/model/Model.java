@@ -60,6 +60,16 @@ public class Model implements IModel{
     public void removeStudent(int studentID) {
         manager.removeStudent(studentID);
     }
+
+    @Override
+    public void createStudent(Student student) {
+        manager.createStudent(student);
+    }
+
+    @Override
+    public void createTecher(Teacher teacher) {
+    manager.createTeacher(teacher);    
+    }
     
 }
 

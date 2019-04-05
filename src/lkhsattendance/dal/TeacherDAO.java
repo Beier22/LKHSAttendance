@@ -179,70 +179,55 @@ public class TeacherDAO implements DAOFacade {
     }
 
 
-    
-    public boolean teacherSubjectAvailability(int subjectID) {
-        try (Connection con = ds.getConnection()) {
-            
-            boolean myBoolean = false;
-            String sqlChecker = "SELECT (teacherID) from Attendance2.dbo.[Subject]" +
-                                "WHERE SubjectID = "+subjectID;
-            Statement stmt = con.createStatement();
-            ResultSet rs = stmt.executeQuery(sqlChecker);
-            while(rs.next()) {
-                if (rs.getInt("teacherID")>0) {
-                    myBoolean = true;
-                }
-            }
-            return myBoolean;
-
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        }
-        return false;
-    }
-    
-    public void addNewTeacher(String lName, String fName, String email, String pass, int subjectID) {
-        int sendId = -1;
-        if(teacherSubjectAvailability(subjectID)==true) {
+    @Override
+    public void createTeacher(Teacher teacher) {
         try (Connection con = ds.getConnection()) {
 
-        //Actual method starts here
         String sql = "INSERT INTO [Attendance2].[dbo].Teacher "
-                + "(StudentLName, StudentFName, StudentClassID, email, pass) "
-                + "VALUES (?, ?, ?, ?, ?)";
+                + "(TeacherLName, TeacherFName, email, pass) "
+                + "VALUES (?, ?, ?, ?)";
 
             PreparedStatement ps = con.prepareStatement(sql);
-            ps.setString(1, lName);
-            ps.setString(2, fName);
-            ps.setString(4, email);
-            ps.setString(5, pass);
+            ps.setString(1, teacher.getNameL());
+            ps.setString(2, teacher.getNameF());
+            ps.setString(3, teacher.getEmail());
+            ps.setString(4, teacher.getPassword());
             ps.addBatch();
             ps.executeBatch();
-            String sqlChecker = "SELECT (teacherID) from Attendance2.dbo.[Teacher]" +
-                                "WHERE email = "+email;
-            Statement stmt = con.createStatement();
-            ResultSet rs = stmt.executeQuery(sqlChecker);
-            while(rs.next()) {
-                sendId = rs.getInt("teacherID");
-            }
+            System.out.println("Teacher has been successfully created");
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
-        //method below has to be called multiple times depending on how many subjects the teacher has
-        addTeacherSubjects(sendId, subjectID);
-        }
+        addTeacherSubjects(teacher);
     }
-    public void addTeacherSubjects(int teacherID, int subjectID) {
-        String sql = "UPDATE Attendance2.dbo.[Subject] SET TeacherID=? WHERE SubjectID=?"; 
+    
+    public void addTeacherSubjects(Teacher teacher) {
+        int id = -1;
         try (Connection con = ds.getConnection()) {
+            String getID = "SELECT TeacherID FROM Attendance2.dbo.[Teacher] WHERE email = '"+teacher.getEmail()+"'";
+            Statement stmt = con.createStatement();
+            ResultSet rs = stmt.executeQuery(getID);
+            while(rs.next())
+                id = rs.getInt("TeacherID");
+            for (int i = 0; i<teacher.getSubjectsTeaching().size(); i++){
+                Subject s = teacher.getSubjectsTeaching().get(i);
+                int subjectID = s.getId();
+                
+            
+            String sql = "UPDATE Attendance2.dbo.[Subject] SET TeacherID=? WHERE SubjectID=?"; 
+            
             PreparedStatement ps = con.prepareStatement(sql);
-            ps.setInt(1, teacherID);
+            ps.setInt(1, id);
             ps.setInt(2, subjectID);
             ps.addBatch();
             ps.executeBatch();
+            
+            }
+            System.out.println("Subjects has been successfully added");
         } catch(SQLException ex) {
             ex.printStackTrace();
         }
+                
     }
 
     @Override
@@ -256,5 +241,10 @@ public class TeacherDAO implements DAOFacade {
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
+    }
+
+    @Override
+    public void createStudent(Student student) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 } 

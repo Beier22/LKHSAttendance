@@ -57,5 +57,11 @@ public class Manager {
         tDao.removeUser(studentID);
     }
     
+    public void createStudent(Student student) {
+        sDao.createStudent(student);
+    }
     
+    public void createTeacher(Teacher teacher) {
+        tDao.createTeacher(teacher);
+    }
 }

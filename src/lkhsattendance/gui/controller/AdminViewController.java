@@ -174,6 +174,7 @@ public class AdminViewController implements Initializable {
             s.setEmail(inpEmail.getText());
             s.setPassword(inpPassword.getText());
             s.setClassId(cbxClass.getSelectionModel().getSelectedItem().getId());
+            model.createStudent(s);
         } else {
             if(inpNameF.getText().isEmpty() || inpNameL.getText().isEmpty() || inpEmail.getText().isEmpty() || cbxFirstSubject.getSelectionModel().getSelectedItem() == null){
                 System.out.println("Input required fields");
@@ -185,8 +186,9 @@ public class AdminViewController implements Initializable {
             t.setEmail(inpEmail.getText());
             t.setPassword(inpPassword.getText());
             t.setSubjectsTeaching(getSelectedSubjects());
-            System.out.println(t);
+            model.createTecher(t);
         }
+        
     }
     
     

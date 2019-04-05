@@ -9,7 +9,9 @@ package lkhsattendance.dal;
 import java.sql.Date;
 import java.util.List;
 import lkhsattendance.be.Clss;
+import lkhsattendance.be.Student;
 import lkhsattendance.be.Subject;
+import lkhsattendance.be.Teacher;
 
 /**
  *
@@ -29,6 +31,8 @@ public interface DAOFacade {
     
     public void removeUser(int id);
     
-    //public void addUser(); //method for creating new student and teacher - if possible, avoid having two seperate methods
+    public void createTeacher(Teacher teacher);
+    
+    public void createStudent(Student student);
     
 }
