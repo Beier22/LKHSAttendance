@@ -24,8 +24,8 @@ public interface IModel {
     public List<Teacher> getAllTeachersWithClassesAndSubjects();
     public List<Clss> getAllClasses();
     public List<Subject> getAllSubjects();
-    public void removeTeacher(int teacherID);
-    public void removeStudent(int studentID);
+    public void removeTeacher(Teacher teacher);
+    public void removeStudent(Student student);
     public void createStudent(Student student);
     public void createTecher(Teacher teacher);
     

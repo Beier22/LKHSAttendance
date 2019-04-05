@@ -52,13 +52,13 @@ public class Model implements IModel{
     }
 
     @Override
-    public void removeTeacher(int teacherID) {
-        manager.removeTeacher(teacherID);
+    public void removeTeacher(Teacher teacher) {
+        manager.removeTeacher(teacher);
     }
 
     @Override
-    public void removeStudent(int studentID) {
-        manager.removeStudent(studentID);
+    public void removeStudent(Student student) {
+        manager.removeStudent(student);
     }
 
     @Override

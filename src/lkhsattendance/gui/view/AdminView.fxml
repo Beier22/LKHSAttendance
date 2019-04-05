@@ -57,7 +57,7 @@
                                        <children>
                                           <StackPane alignment="CENTER_LEFT" prefHeight="150.0" prefWidth="10000.0">
                                              <children>
-                                                <JFXButton text="Remove Teacher">
+                                                <JFXButton fx:id="removeTeacher" onAction="#clickRemoveTeacher" text="Remove Teacher">
                                                    <StackPane.margin>
                                                       <Insets left="30.0" />
                                                    </StackPane.margin>
@@ -92,7 +92,7 @@
                                        <children>
                                           <StackPane alignment="CENTER_LEFT" prefHeight="150.0" prefWidth="10000.0">
                                              <children>
-                                                <JFXButton text="Remove Student">
+                                                <JFXButton fx:id="removeStudent" onAction="#clickRemoveStudent" text="Remove Student">
                                                    <StackPane.margin>
                                                       <Insets left="30.0" />
                                                    </StackPane.margin>

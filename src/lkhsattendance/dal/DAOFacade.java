@@ -29,7 +29,9 @@ public interface DAOFacade {
     
     public List<Subject> getAllSubjects();
     
-    public void removeUser(int id);
+    public void removeStudent(Student student);
+    
+    public void removeTeacher(Teacher teacher);
     
     public void createTeacher(Teacher teacher);
     

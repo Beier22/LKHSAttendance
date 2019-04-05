@@ -49,12 +49,12 @@ public class Manager {
         return tDao.getAllSubjects();
     }
 
-    public void removeTeacher(int teacherID) {
-        tDao.removeUser(teacherID);
+    public void removeTeacher(Teacher teacher) {
+        tDao.removeTeacher(teacher);
     }
 
-    public void removeStudent(int studentID) {
-        tDao.removeUser(studentID);
+    public void removeStudent(Student student) {
+        sDao.removeStudent(student);
     }
     
     public void createStudent(Student student) {

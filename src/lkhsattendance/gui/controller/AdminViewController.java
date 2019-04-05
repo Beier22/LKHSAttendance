@@ -5,6 +5,7 @@
  */
 package lkhsattendance.gui.controller;
 
+import com.jfoenix.controls.JFXButton;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -58,6 +59,10 @@ public class AdminViewController implements Initializable {
     private int n = 0;
     private List<Subject> subjectsWithoutTeacher = new ArrayList();
     private ComboBox<Subject> cbxFirstSubject = new ComboBox();
+    @FXML
+    private JFXButton removeTeacher;
+    @FXML
+    private JFXButton removeStudent;
     
     /**
      * Initializes the controller class.
@@ -188,6 +193,25 @@ public class AdminViewController implements Initializable {
             t.setSubjectsTeaching(getSelectedSubjects());
             model.createTecher(t);
         }
+        
+    }
+
+    @FXML
+    private void clickRemoveTeacher(ActionEvent event) {
+        Teacher teacher = lstTeachers.getSelectionModel().getSelectedItem();
+        model.removeTeacher(teacher);
+        lstTeachers.getItems().clear();
+        lstTeachers.getItems().addAll(model.getAllTeachersWithClassesAndSubjects());
+        
+        
+    }
+
+    @FXML
+    private void clickRemoveStudent(ActionEvent event) {
+        Student student = lstStudents.getSelectionModel().getSelectedItem();
+        model.removeStudent(student);
+        lstStudents.getItems().clear();
+        lstStudents.getItems().addAll(model.getAllStudentsWithAttendance());
         
     }
     

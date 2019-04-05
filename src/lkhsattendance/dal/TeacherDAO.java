@@ -231,20 +231,25 @@ public class TeacherDAO implements DAOFacade {
     }
 
     @Override
-    public void removeUser(int id) {
+    public void removeTeacher(Teacher teacher) {
         String sql = "DELETE FROM [Attendance2].[dbo].[Teacher] WHERE TeacherID = ?";
         try (Connection con = ds.getConnection()) {
             PreparedStatement ps = con.prepareStatement(sql);
-            ps.setInt(1, id);
+            ps.setInt(1, teacher.getId());
             ps.addBatch();
             ps.executeBatch();
         } catch (SQLException ex) {
-            ex.printStackTrace();
+            System.out.println("Teacher is coupled to a subject - please remove from subject before deleting");
         }
     }
 
     @Override
     public void createStudent(Student student) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void removeStudent(Student student) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 } 

@@ -180,11 +180,13 @@ public class StudentDAO implements DAOFacade {
     }
 
     @Override
-    public void removeUser(int id) {
-        String sql = "DELETE FROM [Attendance2].[dbo].[Student] WHERE StudentID = ?";
+    public void removeStudent(Student student) {
+        String sql = "DELETE FROM [Attendance2].[dbo].Attendance WHERE StudentID = " + student.getId()+
+                     " DELETE FROM [Attendance2].[dbo].Student WHERE StudentID = "+student.getId();
         try (Connection con = ds.getConnection()) {
             PreparedStatement ps = con.prepareStatement(sql);
-            ps.setInt(1, id);
+            //ps.setInt(1, student.getId());
+            //ps.setInt(2, student.getId());
             ps.addBatch();
             ps.executeBatch();
         } catch (SQLException ex) {
@@ -194,6 +196,11 @@ public class StudentDAO implements DAOFacade {
 
     @Override
     public void createTeacher(Teacher teacher) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void removeTeacher(Teacher teacher) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
