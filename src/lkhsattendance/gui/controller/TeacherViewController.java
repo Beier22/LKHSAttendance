@@ -15,6 +15,7 @@ import java.sql.Date;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -135,7 +136,12 @@ public class TeacherViewController implements Initializable {
                     allStudents.add(student);
                 }
             }
+            Collections.sort(allStudents);
             lstStudents.getItems().addAll(allStudents);
+            /*lstStudents.getItems().sort((o1, o2) -> {
+                return o1.compareTo(o2); //To change body of generated lambdas, choose Tools | Templates.
+            });*/
+            
         }
         if (selectedStudentOverview==1) {
             lstStudents.getItems().clear();
@@ -145,6 +151,7 @@ public class TeacherViewController implements Initializable {
                     absentStudents.add(student);
                 }
             }
+            Collections.sort(absentStudents);
             lstStudents.getItems().addAll(absentStudents);
         }
         if (selectedStudentOverview==2) {
@@ -155,7 +162,9 @@ public class TeacherViewController implements Initializable {
                     attendantStudents.add(student);
                 }
             }
+            Collections.sort(attendantStudents);
             lstStudents.getItems().addAll(attendantStudents);
+            
         }
     }
 

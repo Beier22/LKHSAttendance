@@ -14,7 +14,7 @@ import java.util.List;
  *
  * @author LKHS
  */
-public class Student {
+public class Student implements Comparable<Student>{
     
     private int id;
     private String nameL;
@@ -115,6 +115,12 @@ public class Student {
     public void setClassId(int classId) {
         this.classId = classId;
     }
+
+    @Override
+    public int compareTo(Student o) {
+        return nameL.compareTo(o.getNameL());
+    }
+    
     
     
 }

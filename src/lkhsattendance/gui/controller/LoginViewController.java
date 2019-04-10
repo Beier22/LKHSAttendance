@@ -83,7 +83,7 @@ public class LoginViewController implements Initializable {
         Date date = Date.valueOf(LocalDate.now());
         model.unattendance(date); //HER ER METODEN SOM SØRGER FOR AT GØR STUDENTS ABSENT
         
-        if(prefs.getBoolean("elected", true)){
+        if(prefs.getBoolean("selected", true)){
             txtEmail.setText(prefs.get("lastEmail", null));
             txtPassword.setText(prefs.get("lastPassword", null));
             rememberMe.setSelected(true);
