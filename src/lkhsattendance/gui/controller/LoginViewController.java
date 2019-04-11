@@ -24,6 +24,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -40,21 +41,25 @@ import lkhsattendance.gui.model.Model;
  * @author LKHS
  */
 public class LoginViewController implements Initializable {
-    
 
-    @FXML private JFXTextField txtEmail;
-    @FXML private JFXPasswordField txtPassword;
-    @FXML private JFXToggleButton rememberMe;
-    @FXML private JFXButton btnLogin;
-    @FXML private Text txt;
-    
+    @FXML
+    private JFXTextField txtEmail;
+    @FXML
+    private JFXPasswordField txtPassword;
+    @FXML
+    private JFXToggleButton rememberMe;
+    @FXML
+    private JFXButton btnLogin;
+    @FXML
+    private Text txt;
+
     private Preferences prefs = Preferences.userNodeForPackage(this.getClass());
     private IModel model = new Model();
     private List<Student> students = new ArrayList();
     private List<Teacher> teachers = new ArrayList();
     private LocalDate localDate = LocalDate.now();
     private Date date = java.sql.Date.valueOf(localDate);
-    
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         students = model.getAllStudentsWithAttendance();
@@ -79,11 +84,11 @@ public class LoginViewController implements Initializable {
                 }
             }
         });
-        
+
         Date date = Date.valueOf(LocalDate.now());
         model.unattendance(date); //HER ER METODEN SOM SØRGER FOR AT GØR STUDENTS ABSENT
-        
-        if(prefs.getBoolean("selected", true)){
+
+        if (prefs.getBoolean("selected", true)) {
             txtEmail.setText(prefs.get("lastEmail", null));
             txtPassword.setText(prefs.get("lastPassword", null));
             rememberMe.setSelected(true);
@@ -94,65 +99,105 @@ public class LoginViewController implements Initializable {
     private void clickLogin(ActionEvent event) throws IOException {
         String inputEmail = txtEmail.getText();
         String inputPassword = txtPassword.getText();
-        
-        if(inputEmail.toLowerCase().equals("admin")){
-            if(inputPassword.equals("")){
+        logIn(inputEmail, inputPassword);
+    }
+
+    private void setPrefs(String email, String password) {
+        if (rememberMe.isSelected()) {
+            prefs.put("lastEmail", email);
+            prefs.put("lastPassword", password);
+            prefs.putBoolean("selected", true);
+        } else {
+            prefs.putBoolean("selected", false);
+        }
+    }
+
+    private Object logIn(String user, String password) throws IOException {
+
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setContentText("User not found!");
+
+        if (user.toLowerCase().equals("admin")) {
+
+            if (password == null) {
+                return user;
+            } else if (password.equals("")) {
                 Stage stage = (Stage) btnLogin.getScene().getWindow();
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/lkhsattendance/gui/view/AdminView.fxml"));
                 stage.setScene(new Scene(loader.load()));
-                setPrefs(inputEmail, inputPassword);
-                return;
+                setPrefs(user, password);
+                return user;
             } else {
+                alert.setContentText("Wrong password!");
                 System.out.println("Incorrect password!");
-                return;
             }
         }
 
         for (Student student : students) {
-            if (student.getEmail().toLowerCase().equals(inputEmail.toLowerCase())) {
-                if (student.getPassword().equals(inputPassword)) {
+            if (student.getEmail().toLowerCase().equals(user.toLowerCase())) {
+                if (student.getPassword().equals(password)) {
                     model.login(student.getId(), date); //HER ER LOG IND METODEN KALDET
                     Stage stage = (Stage) btnLogin.getScene().getWindow();
                     FXMLLoader loader = new FXMLLoader(getClass().getResource("/lkhsattendance/gui/view/StudentView.fxml"));
                     stage.setScene(new Scene(loader.load()));
                     StudentViewController cont = loader.getController();
                     cont.setUp(student, null);
-                    setPrefs(inputEmail, inputPassword);
-                    return;
+                    setPrefs(user, password);
+                    return student;
+                } else if (password == null) {
+                    return student;
                 } else {
+                    alert.setContentText("Wrong password!");
                     System.out.println("Wrong password! (LoginViewController, clickLogin, Student)");
-                    return;
                 }
             }
         }
 
         for (Teacher teacher : teachers) {
-            if (teacher.getEmail().toLowerCase().equals(inputEmail.toLowerCase())) {
-                if (teacher.getPassword().equals(inputPassword)) {
+            if (teacher.getEmail().toLowerCase().equals(user.toLowerCase())) {
+                if (teacher.getPassword().equals(password)) {
                     Stage stage = (Stage) btnLogin.getScene().getWindow();
                     FXMLLoader loader = new FXMLLoader(getClass().getResource("/lkhsattendance/gui/view/TeacherView.fxml"));
                     stage.setScene(new Scene(loader.load()));
                     TeacherViewController cont = loader.getController();
                     cont.setUp(teacher);
-                    setPrefs(inputEmail, inputPassword);
-                    return;
+                    setPrefs(user, password);
+                    return teacher;
+                } else if (password == null) {
+                    return teacher;
                 } else {
+                    alert.setContentText("Wrong password!");
                     System.out.println("Wrong password! (LoginViewController, clickLogin, Teacher)");
-                    return;
                 }
             }
         }
-        System.out.println("User not found! (LoginViewController, clickLogin)");
+        System.out.println("User not found!");
+        alert.showAndWait();
+        return null;
     }
-    
-    private void setPrefs(String email, String password){
-        if(rememberMe.isSelected()){
-            prefs.put("lastEmail", email);
-            prefs.put("lastPassword", password);
-            prefs.putBoolean("selected", true);
+
+    @FXML
+    private void clickForgot(ActionEvent event) throws IOException {
+
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Forgot Password");
+        alert.setHeaderText(null);
+
+        Object user = logIn(txtEmail.getText(), null);
+        if(user == null)
+            return;
+
+        if (user.getClass() == Student.class) {
+            Student student = (Student) user;
+            alert.setContentText("The password for " + student.getEmail() + " is:\n" + student.getPassword());
+        } else if (user.getClass() == Teacher.class) {
+            Teacher teacher = (Teacher) user;
+            alert.setContentText("The password for " + teacher.getEmail() + " is:\n" + teacher.getPassword());
+        } else if (user.getClass() == String.class){
+            alert.setContentText("Admin does not have a password");
         }
-        else
-            prefs.putBoolean("selected", false);
+
+        alert.showAndWait();
     }
 
 }

@@ -57,11 +57,11 @@ public class Manager {
         sDao.removeStudent(student);
     }
     
-    public void createStudent(Student student) {
-        sDao.createStudent(student);
+    public boolean createStudent(Student student) {
+        return sDao.createStudent(student);
     }
     
-    public void createTeacher(Teacher teacher) {
-        tDao.createTeacher(teacher);
+    public boolean createTeacher(Teacher teacher) {
+        return tDao.createTeacher(teacher);
     }
 }

@@ -18,6 +18,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -170,7 +171,9 @@ public class AdminViewController implements Initializable {
     private void clickCreate(ActionEvent event) {
         if(isCreateStudent){
             if(inpNameF.getText().isEmpty() || inpNameL.getText().isEmpty() || inpEmail.getText().isEmpty() || cbxClass.getSelectionModel().getSelectedItem() == null){
-                System.out.println("Input required fields");
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setContentText("Input required fields");
+                alert.showAndWait();
                 return;
             }
             Student s = new Student();
@@ -179,7 +182,15 @@ public class AdminViewController implements Initializable {
             s.setEmail(inpEmail.getText());
             s.setPassword(inpPassword.getText());
             s.setClassId(cbxClass.getSelectionModel().getSelectedItem().getId());
-            model.createStudent(s);
+            if(model.createStudent(s)){
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setContentText("Student created successfully");
+                alert.showAndWait();
+            } else {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setContentText("Something went wrong");
+                alert.showAndWait();
+            }
         } else {
             if(inpNameF.getText().isEmpty() || inpNameL.getText().isEmpty() || inpEmail.getText().isEmpty() || cbxFirstSubject.getSelectionModel().getSelectedItem() == null){
                 System.out.println("Input required fields");
@@ -191,7 +202,15 @@ public class AdminViewController implements Initializable {
             t.setEmail(inpEmail.getText());
             t.setPassword(inpPassword.getText());
             t.setSubjectsTeaching(getSelectedSubjects());
-            model.createTecher(t);
+            if(model.createTecher(t)){
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setContentText("Teacher created successfully");
+                alert.showAndWait();
+            } else {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setContentText("Something went wrong");
+                alert.showAndWait();
+            }
         }
         
     }

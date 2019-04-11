@@ -62,13 +62,13 @@ public class Model implements IModel{
     }
 
     @Override
-    public void createStudent(Student student) {
-        manager.createStudent(student);
+    public boolean createStudent(Student student) {
+        return manager.createStudent(student);
     }
 
     @Override
-    public void createTecher(Teacher teacher) {
-    manager.createTeacher(teacher);    
+    public boolean createTecher(Teacher teacher) {
+        return manager.createTeacher(teacher);    
     }
     
 }

@@ -33,8 +33,8 @@ public interface DAOFacade {
     
     public void removeTeacher(Teacher teacher);
     
-    public void createTeacher(Teacher teacher);
+    public boolean createTeacher(Teacher teacher);
     
-    public void createStudent(Student student);
+    public boolean createStudent(Student student);
     
 }

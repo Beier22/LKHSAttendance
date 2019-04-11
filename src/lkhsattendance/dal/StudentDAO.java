@@ -147,7 +147,7 @@ public class StudentDAO implements DAOFacade {
 
 
     @Override
-    public void createStudent(Student s) {
+    public boolean createStudent(Student s) {
         System.out.println("testtesttest");
         String sql = "INSERT INTO [Attendance2].[dbo].Student "
                 + "(StudentLName, StudentFName, StudentClassID, email, pass) "
@@ -163,10 +163,11 @@ public class StudentDAO implements DAOFacade {
             ps.addBatch();
             ps.executeBatch();
             System.out.println("Student has been successfully created");
+            return true;
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
-        
+        return false;
     }
 
     @Override
@@ -195,7 +196,7 @@ public class StudentDAO implements DAOFacade {
     }
 
     @Override
-    public void createTeacher(Teacher teacher) {
+    public boolean createTeacher(Teacher teacher) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

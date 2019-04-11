@@ -65,7 +65,7 @@
       </StackPane>
       <StackPane layoutX="168.0" layoutY="405.0" prefHeight="0.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
          <children>
-            <JFXButton text="Forgot password" textFill="#000000ae" />
+            <JFXButton onAction="#clickForgot" text="Forgot password" textFill="#000000ae" />
          </children>
       </StackPane>
    </children>

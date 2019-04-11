@@ -180,7 +180,7 @@ public class TeacherDAO implements DAOFacade {
 
 
     @Override
-    public void createTeacher(Teacher teacher) {
+    public boolean createTeacher(Teacher teacher) {
         try (Connection con = ds.getConnection()) {
 
         String sql = "INSERT INTO [Attendance2].[dbo].Teacher "
@@ -194,11 +194,14 @@ public class TeacherDAO implements DAOFacade {
             ps.setString(4, teacher.getPassword());
             ps.addBatch();
             ps.executeBatch();
+            addTeacherSubjects(teacher);
             System.out.println("Teacher has been successfully created");
+            return true;
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
-        addTeacherSubjects(teacher);
+        
+        return false;
     }
     
     public void addTeacherSubjects(Teacher teacher) {
@@ -244,7 +247,7 @@ public class TeacherDAO implements DAOFacade {
     }
 
     @Override
-    public void createStudent(Student student) {
+    public boolean createStudent(Student student) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

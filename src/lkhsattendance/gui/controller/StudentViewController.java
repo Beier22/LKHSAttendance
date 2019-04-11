@@ -10,7 +10,6 @@ import java.net.URL;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Collections;
 import java.util.List;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
@@ -24,7 +23,6 @@ import javafx.scene.Scene;
 import javafx.scene.chart.PieChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
-import javafx.scene.image.Image;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import lkhsattendance.be.Student;
@@ -74,21 +72,6 @@ public class StudentViewController implements Initializable {
         }
     }
 
-    @FXML
-    private void btnHandleRequest(ActionEvent event) {
-        
-    }
-    
-    /*
-    public void setUp(Student student) {
-        this.student = student;
-        System.out.println("Student: " + student.getNameF());
-        txtWelcome.setText("Welcome, " + student.getNameF());
-        List<String> yada = model.getUnattendedDays(student);
-        Collections.reverse(yada);
-        listView.getItems().addAll(yada);
-    }
-    */
     
     public void setUp(Student student, Teacher teacher) {
         this.student = student;
