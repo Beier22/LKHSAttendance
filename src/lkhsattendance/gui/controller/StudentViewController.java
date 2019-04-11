@@ -41,7 +41,6 @@ public class StudentViewController implements Initializable {
     @FXML private ListView<String> listView;
     @FXML private PieChart pie;
     @FXML private Button btnBack;
-    @FXML private Button btnRequest;
     
     private Student student;
     private Teacher teacher;
@@ -103,7 +102,6 @@ public class StudentViewController implements Initializable {
         
         if(teacher != null){
             btnBack.setText("Back");
-            btnRequest.setText("Change absence");
         }
     }
 

@@ -171,6 +171,8 @@ public class TeacherViewController implements Initializable {
     @FXML
     private void handleMoreInfo(MouseEvent event) throws IOException {
         Student student = lstStudents.getSelectionModel().getSelectedItem();
+        if(student == null)
+            return;
         Stage stage = (Stage) lstStudents.getScene().getWindow();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/lkhsattendance/gui/view/StudentView.fxml"));
         stage.setScene(new Scene(loader.load()));
